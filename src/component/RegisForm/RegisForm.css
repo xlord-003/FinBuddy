@@ -1,0 +1,95 @@
+.finbuddy{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-font-color);
+    height: 100px;
+}
+.finbuddy-title{
+    font-size: 50px;
+    font-weight: 530;
+}
+
+.regis-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.regis-form-container{
+    width: 500px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: var(--primary-font-color);
+    font-size: large;
+    border-radius: 25px;
+    position: relative;
+    padding: 0;
+}
+.form-regis{
+    /* background-color: aliceblue; */
+    color: var(--primary-font-color);
+    width: 100%;
+    height: 100%;
+    padding: 55px 20px 45px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.title{
+    font-size: 25px;
+}
+/* gaya input */
+input{
+    border-radius: 7px;
+    height: 2.4rem;
+    padding: 0px 1rem 0px 1rem;
+    font-size:large;
+    background-color: #374151;
+    border: 2px solid #455268;
+    color: var(--primary-font-color);
+}
+.form-input{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0.75rem;
+
+}
+
+/* gaya button */
+.regis-button{
+    width: 100%;
+    margin-top: 2rem;
+    background-color: #2563EB;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button{
+    border-radius: 7px;
+    height: 2.5rem;
+    font-weight: bold;
+    font-size: medium;
+    border: 50px;
+}
+/* gaya back */
+.back-login{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    height: 30px;
+    width: 30px;
+    background-color: #374151c0;
+    border-radius: 100%;
+    display: flex;
+
+    align-items: center;
+    color: var(--primary-font-color);
+}

@@ -1,0 +1,20 @@
+:root {
+    --primary-color: #111827;
+    --secondary-color: #1F2937;
+
+    /* <=== FONT COLOR ===> */
+    --primary-font-color: #ffffff;
+    --secondary-font-color: #9CA3AF;
+    --third-font-color: #ffffff7c;
+}
+
+body {
+    margin: 0;
+    font-family: poppins, sans-serif;
+}
+
+main {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom, #1B1F9A, #090A34);
+}

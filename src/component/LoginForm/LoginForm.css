@@ -1,0 +1,129 @@
+.login-container{
+    display: flex;
+}
+.form-container{
+    width: 40%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--primary-color);
+    margin-left: auto;
+    flex-direction: column;
+    color: var(--primary-font-color);
+    font-family: poppins;
+    font-size: large;
+}
+
+.form-title{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+.sub-title{
+    font-size: 14px;
+    color: var(--third-font-color);
+    margin: 0;
+}
+.form-login{
+    color: var(--primary-font-color);
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+.form-input{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0.75rem;
+
+}
+.title{
+    font-size: 25px;
+}
+input{
+    border-radius: 7px;
+    height: 2.4rem;
+    padding: 0px 1rem 0px 1rem;
+    font-size:large;
+    background-color: #374151;
+    border: 2px solid #455268;
+    color: var(--primary-font-color);
+}
+.form-button{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0.75rem;
+
+}
+.or{
+    font-size: 14px;
+    color: var(--third-font-color);
+    display: flex;
+    justify-content: center ;
+    margin: 1rem 0 1rem 0;
+}
+
+button{
+    border-radius: 7px;
+    height: 2.5rem;
+    font-weight: bold;
+    font-size: medium;
+    border: none;
+}
+.login-button{
+    background-color: #2563EB;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* --- google buttom --- */
+.google-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+}
+.google-icon{
+    width: 25px;
+    height: 25px;
+    margin-right: 7px;
+}
+
+
+
+.froget-password{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 15px;
+    margin: 8px 0 8px 0;
+}
+
+.login-finbuddy{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 60%;
+    font-size: 20px;
+}
+.login-title{
+    font-size: 40px;
+    margin-bottom: -20px;
+    font-weight: 500;
+}
+a{
+    text-decoration: none;
+    color: #2563EB;
+}
+.error{
+    color: red;
+    font-size: 14px;
+}
