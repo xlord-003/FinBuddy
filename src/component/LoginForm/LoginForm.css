@@ -1,5 +1,6 @@
 .login-container{
     display: flex;
+    background: linear-gradient(to bottom, #1B1F9A, #090A34);
 }
 .form-container{
     width: 40%;
@@ -73,6 +74,7 @@ button{
     font-weight: bold;
     font-size: medium;
     border: none;
+    cursor: pointer;
 }
 .login-button{
     background-color: #2563EB;
@@ -80,6 +82,11 @@ button{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.login-button:hover{
+    background-color: #2564ebcd;
+    color: #ffffffbf;
+    transition: 0.2s;
 }
 /* --- google buttom --- */
 .google-button{
@@ -89,13 +96,16 @@ button{
     background-color: white;
     color: black;
 }
+.google-button:hover{
+    background-color: #c9c9c9;
+    color: #000000a3;
+    transition: 0.2s;
+}
 .google-icon{
     width: 25px;
     height: 25px;
     margin-right: 7px;
 }
-
-
 
 .froget-password{
     width: 100%;
@@ -126,4 +136,7 @@ a{
 .error{
     color: red;
     font-size: 14px;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
 }

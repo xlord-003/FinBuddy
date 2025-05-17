@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./RegisForm.css";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { doc, collection, addDoc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
@@ -17,9 +18,7 @@ const RegisForm = () => {
         const value = e.target.value;
         setData({ ...data, [id]: value });
     };
-
-    // console.log(data)
-
+    
     const prosesRegis = async (e) => {
         e.preventDefault();
 
@@ -39,6 +38,7 @@ const RegisForm = () => {
                 password: ""
             });
             backToLogin("/login")
+            // window.location.reload();
 
         } catch (e) {
             console.error("Error adding document: ", e);
@@ -55,13 +55,13 @@ const RegisForm = () => {
 
             <div class="regis-form-container">
                 <div class="back-login">
-                    <a href="/login" to="/login">
+                    <Link to="/login">
                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor"
                             class="bi bi-arrow-left" viewBox="0 0 16 16" color="#ffffff" display={"flex"} margin-left={"10px"}>
                             <path fill-rule="evenodd"
                                 d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
                         </svg>
-                    </a>
+                    </Link>
                 </div>
                 <form onSubmit={prosesRegis} class="form-regis" action="">
                     <div class="form-input">
@@ -69,6 +69,7 @@ const RegisForm = () => {
                         <input
                             type="Username"
                             placeholder="Enter your name"
+                            name="username"
                             title="Username"
                             id="username"
                             onChange={handelInput}

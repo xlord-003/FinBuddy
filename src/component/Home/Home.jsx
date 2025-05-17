@@ -1,25 +1,16 @@
 import { useState } from "react";
+import "./Home.css";
 
 
 const LoginForm = () => {
     return (
 
-        <div class="home-container">
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            <p>Home</p>
-            
-        </div>
+        <main>
+            <header>Profile</header>
+
+            <nav></nav>
+
+        </main>
     );
 };
 

@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: linear-gradient(to bottom, #1B1F9A, #090A34);
 }
 .regis-form-container{
     width: 500px;
@@ -31,7 +32,6 @@
     padding: 0;
 }
 .form-regis{
-    /* background-color: aliceblue; */
     color: var(--primary-font-color);
     width: 100%;
     height: 100%;
@@ -44,6 +44,7 @@
 .title{
     font-size: 25px;
 }
+
 /* gaya input */
 input{
     border-radius: 7px;
@@ -78,8 +79,14 @@ button{
     font-weight: bold;
     font-size: medium;
     border: 50px;
+    cursor: pointer;
 }
-/* gaya back */
+button:hover{
+    background-color: #2564ebcd;
+    color: #ffffffbf;
+    transition: 0.2s;
+}
+/* style back */
 .back-login{
     position: absolute;
     top: 20px;
@@ -89,7 +96,6 @@ button{
     background-color: #374151c0;
     border-radius: 100%;
     display: flex;
-
     align-items: center;
     color: var(--primary-font-color);
 }

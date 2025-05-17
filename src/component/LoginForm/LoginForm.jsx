@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./LoginForm.css";
+import { Link } from "react-router-dom";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../../firebaseConfig";
+import { data, Navigate, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const [error, setError] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [value, setValue] = useState("");
 
     const home = useNavigate() //home/main
 
@@ -30,6 +32,20 @@ const LoginForm = () => {
 
     };
 
+    //login with google
+    const googleSignIn = () => {
+        signInWithPopup(auth, provider).then((data) => {
+            setValue(data.user.email)
+            localStorage.setItem('email', data.user.email)
+            home("/home")
+        })
+
+    };
+
+    useEffect(() => {
+        setValue(localStorage.getItem('email'))
+    })
+
     return (
 
         <div class="login-container">
@@ -47,7 +63,8 @@ const LoginForm = () => {
                 <form onSubmit={prosesLogin} class="form-login">
                     <div class="form-title">
                         <p class="sub-title">
-                            Don’t have an account? <a href="/register">Create new account</a>
+                            Don’t have an account? 
+                            <Link to="/register"> Create new account</Link>
                         </p>
                     </div>
                     <div class="form-input">
@@ -74,15 +91,16 @@ const LoginForm = () => {
                         <a href="#">Forgot password?</a>
                     </div>
                     <div class="form-button">
-                        <button type="submit" class="login-button">Login now</button>
+                        <button type="submit" class="login-button"  corsor= "pointer" >Login now</button>
+                        {error && <span class="error">wrong email or password</span>}
                         <label class="or">or</label>
-                        <button class="google-button">
-                            <img class="google-icon" src="https://img.icons8.com/color/48/000000/google-logo.png" alt="" />
+                        <button type="button" class="google-button" onClick={googleSignIn} >
+                            <img class="google-icon" src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google" />
                             <label For="Button-google">Login with Google</label>
                         </button>
                     </div>
-                    {error && <span class="error">wrong email or password</span>}
                 </form>
+
             </div>
         </div>
     );
