@@ -22,7 +22,7 @@ const LoginForm = () => {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user);
-                home("/home") //jika benar > home/main
+                home("/dashboard") //jika benar > home/main
             })
             .catch((error) => {
                 setError(true);
@@ -37,7 +37,7 @@ const LoginForm = () => {
         signInWithPopup(auth, provider).then((data) => {
             setValue(data.user.email)
             localStorage.setItem('email', data.user.email)
-            home("/home")
+            home("/dashboard")
         })
 
     };

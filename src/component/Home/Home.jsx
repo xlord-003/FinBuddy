@@ -2,16 +2,15 @@ import { useState } from "react";
 import "./Home.css";
 
 
-const LoginForm = () => {
+const Home = () => {
     return (
-
+        <>
         <main>
             <header>Profile</header>
-
-            <nav></nav>
-
+            <header>Dashboard</header>
         </main>
+        </>
     );
 };
 
-export default LoginForm;
+export default Home;
