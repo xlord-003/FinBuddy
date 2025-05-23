@@ -9,6 +9,7 @@ import SavingsIcon from '@mui/icons-material/Savings';
 const Sidebar = () => {
     return (
         <Box
+            // position="fixed"
             bgcolor="var(--secondary-color)"
             borderRight={"1px solid var(--border-color)"}
             flex={1}
@@ -22,7 +23,7 @@ const Sidebar = () => {
 
             <List>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" to="/dashboard">
+                    <ListItemButton component={Link} to="/dashboard">
                         <ListItemIcon>
                             <DashboardIcon sx={{ color: "white" }}/>
                         </ListItemIcon>
@@ -30,15 +31,23 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" to="/add">
+                    <ListItemButton component={Link} to="/income">
                         <ListItemIcon>
                             <CreateIcon sx={{ color: "white" }}/>
                         </ListItemIcon>
-                        <ListItemText primary="Add" />
+                        <ListItemText primary="Income" />
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" to="/history">
+                    <ListItemButton component={Link} to="/expences">
+                        <ListItemIcon>
+                            <CreateIcon sx={{ color: "white" }}/>
+                        </ListItemIcon>
+                        <ListItemText primary="Expences" />
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton component={Link} to="/history">
                         <ListItemIcon>
                             <HistoryRoundedIcon sx={{ color: "white" }}/>
                         </ListItemIcon>
@@ -46,7 +55,7 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component="a" to="/SaveTips">
+                    <ListItemButton component={Link} to="/savetips">
                         <ListItemIcon>
                             <SavingsIcon sx={{ color: "white" }}/>
                         </ListItemIcon>

@@ -31,7 +31,7 @@ const Navbar = () => {
         <AppBar position="stcky">
             <StyledToolbar>
                 <MenuIcon />
-                <StyledTypography >
+                <StyledTypography display={"flex"} marginRight={"auto"}>
                     <img src={logo} alt="logo" width={55} height={35}/>
                     FinBuddy
                 </StyledTypography>
