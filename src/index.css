@@ -5,6 +5,7 @@
 :root {
     --primary-color: #111827;
     --secondary-color: #1F2937;
+    --third-color: #0466C8;
 
     /* <=== FONT COLOR ===> */
     --primary-font-color: #ffffff;
@@ -24,4 +25,54 @@ main {
     width: 100%;
     height: 100vh;
     background-color: var(--primary-color);
+}
+
+/* button */
+.btn-main{
+    background-color: #2563EB;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px 10px 20px;
+    border-radius: 7px;
+    margin-bottom: 2rem;
+    width: 190px;
+}
+.btn-main:hover{
+    background-color: #2564ebcd;
+    color: #ffffffbf;
+    transition: 0.2s;
+}
+
+.div-main{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+    max-width: 1240px;
+    position: fixed;
+    flex-direction: column;
+}
+
+.div-add{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 92%;
+    max-width: 1240px;
+    position: fixed;
+    flex-direction: column;
+    margin-top: -1.5rem;
+}
+
+.label-add{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.title-add{
+    font-size: 18px;
 }

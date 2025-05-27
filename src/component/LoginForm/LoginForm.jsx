@@ -19,9 +19,10 @@ const LoginForm = () => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in 
+                // signed in user
                 const user = userCredential.user;
                 console.log(user);
+                localStorage.setItem("email", user.email);
                 home("/dashboard") //jika benar > home/main
             })
             .catch((error) => {

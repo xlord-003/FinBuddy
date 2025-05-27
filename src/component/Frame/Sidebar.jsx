@@ -5,18 +5,20 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import CreateIcon from '@mui/icons-material/Create';
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
 import SavingsIcon from '@mui/icons-material/Savings';
+import Navbar from "./Navbar";
 
 const Sidebar = () => {
+
     return (
         <Box
-            // position="fixed"
+            position="sticky"
             bgcolor="var(--secondary-color)"
             borderRight={"1px solid var(--border-color)"}
             flex={1}
             p={2}
             sx={{ 
                 display: { xs: "none", sm: "block" },
-                height: "86vh",
+                height: "86.5vh",
                 width: "230px"
             }}
         >
