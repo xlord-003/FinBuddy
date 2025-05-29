@@ -5,7 +5,6 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import CreateIcon from '@mui/icons-material/Create';
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
 import SavingsIcon from '@mui/icons-material/Savings';
-import Navbar from "./Navbar";
 
 const Sidebar = () => {
 
@@ -41,11 +40,11 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/expences">
+                    <ListItemButton component={Link} to="/expenses">
                         <ListItemIcon>
                             <CreateIcon sx={{ color: "white" }}/>
                         </ListItemIcon>
-                        <ListItemText primary="Expences" />
+                        <ListItemText primary="Expenses" />
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>

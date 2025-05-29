@@ -8,8 +8,8 @@ const StyledToolbar = styled(Toolbar)({
     display: "flex",
     justifyContent: "space-between",
     backgroundColor: "var(--secondary-color)",
-    boxShadow: "none", // hapus bayangan/shadow
-    borderBottom: "0.7px solid var(--border-color)", // tambahkan border
+    boxShadow: "none",
+    borderBottom: "0.7px solid var(--border-color)",
 });
 
 const StyledTypography = styled(Typography)({
