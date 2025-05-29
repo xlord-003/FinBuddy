@@ -7,16 +7,17 @@ import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded';
 import SavingsIcon from '@mui/icons-material/Savings';
 
 const Sidebar = () => {
+
     return (
         <Box
-            // position="fixed"
+            position="sticky"
             bgcolor="var(--secondary-color)"
             borderRight={"1px solid var(--border-color)"}
             flex={1}
             p={2}
             sx={{ 
                 display: { xs: "none", sm: "block" },
-                height: "86vh",
+                height: "86.5vh",
                 width: "230px"
             }}
         >
@@ -39,11 +40,11 @@ const Sidebar = () => {
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                    <ListItemButton component={Link} to="/expences">
+                    <ListItemButton component={Link} to="/expenses">
                         <ListItemIcon>
                             <CreateIcon sx={{ color: "white" }}/>
                         </ListItemIcon>
-                        <ListItemText primary="Expences" />
+                        <ListItemText primary="Expenses" />
                     </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>

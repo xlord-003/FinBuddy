@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import "./LoginForm.css";
 import { Link } from "react-router-dom";
+import logo from '../../image/logo.png';
 
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebaseConfig";
-import { data, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const [error, setError] = useState(false);
@@ -19,9 +20,10 @@ const LoginForm = () => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in 
+                // signed in user
                 const user = userCredential.user;
                 console.log(user);
+                localStorage.setItem("email", user.email);
                 home("/dashboard") //jika benar > home/main
             })
             .catch((error) => {
@@ -51,7 +53,7 @@ const LoginForm = () => {
         <div class="login-container">
 
             <div class="login-finbuddy">
-                <img src="image.png" alt="FinBuddy" />
+                <img src={logo} alt="FinBuddy" />
                 <p class="login-title">
                     Explore FinBuddy
                 </p>

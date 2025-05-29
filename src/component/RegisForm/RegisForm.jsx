@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./RegisForm.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import logo from "../../image/logo.png";
 
-import { doc, collection, addDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -49,7 +50,7 @@ const RegisForm = () => {
         <div class="regis-container">
 
             <div class="finbuddy">
-                <img src="image.png" alt="FinBuddy" />
+                <img src={logo} alt="FinBuddy" height="100px" margin-right={"-2rem"}/>
                 <p class="finbuddy-title">FinBuddy</p>
             </div>
 
