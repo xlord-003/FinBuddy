@@ -225,7 +225,7 @@ const AddExpences = () => {
         );
     }
     
-    if (!targetWeek) { // Should be covered by isLoading or allWeeksFilled
+    if (!targetWeek) {
         return (
             <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
                 <Typography>Error: Unable to specify target week.</Typography>
@@ -251,7 +251,6 @@ const AddExpences = () => {
                             variant="text"
                             onClick={handlePrev}
                             disabled={page === 1 || isSubmitting}
-                            sx={{ /* ... your button styles ... */ }}
                         >
                             <ArrowBackRoundedIcon sx={{ width: '30px', height: '30px' }} />
                         </Button>
@@ -281,7 +280,7 @@ const AddExpences = () => {
                             <Button
                                 variant='contained'
                                 onClick={handleNext}
-                                disabled={isSubmitting} // You might not need to disable Next during submit
+                                disabled={isSubmitting}
                                 sx={{ alignSelf: 'flex-end' }}
                             >
                                 Next
