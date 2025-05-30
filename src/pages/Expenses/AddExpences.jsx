@@ -201,7 +201,7 @@ const AddExpences = () => {
         if (page < totalPagesForCurrentWeek) setPage((prev) => prev + 1);
     };
 
-
+    // Untuk loading membaca data
     if (isLoading) {
         return (
             <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>

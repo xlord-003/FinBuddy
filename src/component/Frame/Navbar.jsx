@@ -3,6 +3,8 @@ import { AppBar, Fade, Menu, MenuItem, styled, Toolbar, Typography } from "@mui/
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import logo from '../../image/logo.png';
+import { getAuth, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -29,11 +31,25 @@ const StyledTypography = styled(Typography)({
 const Navbar = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const navigate = useNavigate();
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleLogout = async () => {
+        const auth = getAuth();
+        try {
+            await signOut(auth);
+            console.log("User signed out successfully");
+            handleClose(); // Tutup menu setelah logout
+            navigate("/login"); // Arahkan ke halaman login
+        } catch (error) {
+            console.error("Error signing out: ", error);
+            alert("Gagal logout: " + error.message);
+        }
     };
 
     return (
@@ -63,7 +79,7 @@ const Navbar = () => {
                         TransitionComponent={Fade}
                     >
                         <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
                     </Menu>
                 </div>
             </StyledToolbar>
