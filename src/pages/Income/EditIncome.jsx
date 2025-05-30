@@ -1,20 +1,111 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import { toast } from "react-toastify";
 import { NumericFormat } from "react-number-format";
 import { Box, Button, Grid } from "@mui/material";
 
-const AddIncome = () => {
+const EditIncome = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     income: "",
     scholarship: "",
     tuition_fee: "",
   });
 
-  const handleAdd = async () => {
+  // Ambil ID dari URL parameter
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get("id");
+
+  // Ambil data dari Firestore saat komponen dimuat
+  useEffect(() => {
+    const fetchIncomeData = async () => {
+      if (!id) {
+        toast.error("ID tidak ditemukan", {
+          autoClose: 3000,
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+        });
+        navigate("/income");
+        return;
+      }
+
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          toast.error("Silakan login terlebih dahulu", {
+            autoClose: 3000,
+            position: "top-right",
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "colored",
+          });
+          navigate("/login");
+          return;
+        }
+
+        const docRef = doc(db, "income", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          // Pastikan data sesuai dengan struktur yang diharapkan
+          setFormData({
+            income: data.income?.toString() || "",
+            scholarship: data.scholarship?.toString() || "",
+            tuition_fee: data.tuition_fee?.toString() || "",
+          });
+        } else {
+          toast.error("Data tidak ditemukan", {
+            autoClose: 3000,
+            position: "top-right",
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "colored",
+          });
+          navigate("/income");
+        }
+      } catch (error) {
+        console.error("Error fetching income data: ", error);
+        toast.error("Gagal mengambil data: " + error.message, {
+          autoClose: 3000,
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+        });
+      }
+    };
+
+    fetchIncomeData();
+  }, [id, navigate]);
+
+  const handleEdit = async () => {
+    if (!id) {
+      toast.error("ID tidak ditemukan", {
+        autoClose: 3000,
+        position: "top-right",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
+      return;
+    }
+
     try {
       const user = auth.currentUser;
       if (!user) {
@@ -30,15 +121,14 @@ const AddIncome = () => {
         return;
       }
 
-      // Tambah dokumen baru ke koleksi "income"
-      await addDoc(collection(db, "income"), {
-        userId: user.uid, // Tambahkan userId
+      const docRef = doc(db, "income", id);
+      await updateDoc(docRef, {
         income: parseFloat(formData.income || 0),
         scholarship: parseFloat(formData.scholarship || 0),
         tuition_fee: parseFloat(formData.tuition_fee || 0),
       });
 
-      toast.success("Pendapatan berhasil ditambahkan!", {
+      toast.success("Pendapatan berhasil diperbarui!", {
         autoClose: 3000,
         position: "top-right",
         hideProgressBar: false,
@@ -48,17 +138,10 @@ const AddIncome = () => {
         theme: "colored",
       });
 
-      // Reset form
-      setFormData({
-        income: "",
-        scholarship: "",
-        tuition_fee: "",
-      });
-
       navigate("/income");
     } catch (e) {
-      console.error("Error adding document: ", e);
-      toast.error("Gagal menambahkan pendapatan: " + e.message, {
+      console.error("Error updating document: ", e);
+      toast.error("Gagal memperbarui pendapatan: " + e.message, {
         autoClose: 3000,
         position: "top-right",
         hideProgressBar: false,
@@ -83,7 +166,7 @@ const AddIncome = () => {
       >
         <Grid container sx={{ justifyContent: "center" }}>
           <Grid>
-            <label className="label-add">Add Finance</label>
+            <label className="label-add">Edit Finance</label>
           </Grid>
         </Grid>
         <Grid
@@ -166,9 +249,9 @@ const AddIncome = () => {
                 minWidth: "unset",
                 width: "140px",
               }}
-              onClick={handleAdd}
+              onClick={handleEdit}
             >
-              Add
+              Save
             </Button>
           </Grid>
         </Grid>
@@ -177,6 +260,4 @@ const AddIncome = () => {
   );
 };
 
-AddIncome.propTypes = {};
-
-export default AddIncome;
+export default EditIncome;
