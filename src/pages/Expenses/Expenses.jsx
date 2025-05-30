@@ -33,7 +33,7 @@ const Expences = () => {
                 }}
             >
                 <label margin-top='1rem'>
-                    Text.............................................................Expenses
+                    Anda Belum memasukkan Pengeluaran mingguan!
                 </label>
                 <Link to='/expenses/add' >
                     <button className='btn-main'> Add Expences </button>
