@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import { toast } from "react-toastify";
@@ -8,16 +8,13 @@ import { Box, Button, Grid } from "@mui/material";
 
 const EditIncome = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     income: "",
     scholarship: "",
     tuition_fee: "",
   });
 
-  // Ambil ID dari URL parameter
-  const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get("id");
 
   // Ambil data dari Firestore saat komponen dimuat
   useEffect(() => {

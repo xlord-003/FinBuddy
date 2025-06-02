@@ -6,6 +6,7 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from "../../firebaseConfig";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AddExpences = () => {
     const [page, setPage] = useState(1);
@@ -33,8 +34,8 @@ const AddExpences = () => {
         const user = auth.currentUser;
 
         if (!user) {
-            alert("User is not logged in. Redirecting to login page.");
-            navigate("/login"); // login route
+            toast.error("User not authenticated. Please log in first.");
+            navigate("/expenses"); // login route
             setIsLoading(false);
             return;
         }

@@ -131,7 +131,7 @@ const Income = () => {
               bgcolor: "var(--secondary-color)",
             }}
           >
-            <Typography variant="body1">
+            <Typography variant="body1" color="white">
               Anda telah mengisi data keuangan anda!
             </Typography>
           </Paper>

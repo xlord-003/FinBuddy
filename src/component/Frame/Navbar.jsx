@@ -1,7 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { AppBar, Fade, Menu, MenuItem, styled, Toolbar, Typography } from "@mui/material";
-import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig.js"; // Pastikan path ke firebase.js benar
 import { toast } from "react-toastify"; // Impor react-toastify
 import MenuIcon from '@mui/icons-material/Menu';
@@ -34,12 +32,25 @@ const StyledTypography = styled(Typography)({
 const Navbar = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const navigate = useNavigate();
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            handleClose();
+            toast.success("Logged out successfully!");
+            navigate("/login");
+        } catch (error) {
+            console.error("Error logging out: ", error);
+            toast.error("Failed to log out.");
+        }
     };
 
     return (

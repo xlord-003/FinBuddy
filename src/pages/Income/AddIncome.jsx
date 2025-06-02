@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import { toast } from "react-toastify";
 import { NumericFormat } from "react-number-format";
 import { Box, Button, Grid } from "@mui/material";
+import { onAuthStateChanged } from "firebase/auth";
 
 const AddIncome = () => {
   const navigate = useNavigate();
@@ -14,10 +15,24 @@ const AddIncome = () => {
     tuition_fee: "",
   });
 
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUserId(user.uid);
+      } else {
+        setCurrentUserId(null);
+      }
+      setIsAuthLoading(false);
+    });
+    return () => unsubscribe();
+  }, []); 
+
   const handleAdd = async () => {
     try {
-      const user = auth.currentUser;
-      if (!user) {
+      if (!currentUserId) {
         toast.error("Silakan login terlebih dahulu", {
           autoClose: 3000,
           position: "top-right",
@@ -29,14 +44,15 @@ const AddIncome = () => {
         });
         return;
       }
-
+      const docRef = doc(db, "income", currentUserId);
       // Tambah dokumen baru ke koleksi "income"
-      await addDoc(collection(db, "income"), {
-        userId: user.uid, // Tambahkan userId
-        income: parseFloat(formData.income || 0),
-        scholarship: parseFloat(formData.scholarship || 0),
-        tuition_fee: parseFloat(formData.tuition_fee || 0),
-      });
+    await setDoc(docRef, {
+      userId: currentUserId, // Tambahkan userId
+      income: parseFloat(formData.income || 0),
+      scholarship: parseFloat(formData.scholarship || 0),
+      tuition_fee: parseFloat(formData.tuition_fee || 0),
+    });
+
 
       toast.success("Pendapatan berhasil ditambahkan!", {
         autoClose: 3000,
