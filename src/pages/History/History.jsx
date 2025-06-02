@@ -105,13 +105,17 @@ const History = () => {
       // Income
       const incomeDocRef = doc(db, "income", uid);
       const incomeDocSnap = await getDoc(incomeDocRef);
-      const newIncomeRows = [];
+      const newIncomeRows = [
+        { id: 'income_source', source: 'Income', amount: 0 },
+        { id: 'scholarship_source', source: 'Scholarship', amount: 0 },
+        { id: 'tuition_fee_source', source: 'Tuition fee', amount: 0 },
+      ];
       if (incomeDocSnap.exists()) {
         const incomeData = incomeDocSnap.data();
         // nama dalam tabel
-        newIncomeRows.push({ id: 'income_source', source: 'Income', amount: incomeData.income || 0 });
-        newIncomeRows.push({ id: 'scholarship_source', source: 'Scholarship', amount: incomeData.scholarship || 0 });
-        newIncomeRows.push({ id: 'tuition_fee_source', source: 'Tuition fee', amount: incomeData.tuition_fee || 0 });
+        newIncomeRows[0].amount = incomeData.income || 0;
+        newIncomeRows[1].amount = incomeData.scholarship || 0;
+        newIncomeRows[2].amount = incomeData.tuition_fee || 0;
       }
       setIncomeRows(newIncomeRows);
 
@@ -167,11 +171,19 @@ const History = () => {
   //       theme: "colored",
   //     })
   // }
+  if (isLoading) {
+    return (
+      <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
+        <CircularProgress />
+        <Typography>Loading...</Typography>
+      </div>
+    );
+  }
 
 
   return (
     <div className="div-main">
-      <Box sx={{ bgcolor: 'red', marginTop: '1rem', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingX: { xs: 1, md: 2 } }}>
+      <Box sx={{ marginTop: '1rem', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingX: { xs: 1, md: 2 } }}>
         {/* Income */}
         <Box mb={4}>
           <Typography variant="h4" gutterBottom component="h2" sx={{ fontWeight: 'bold' }}>

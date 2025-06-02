@@ -88,6 +88,7 @@ const Income = () => {
   navigate(`/income/edit/${id}`); // Sesuaikan dengan rute params
 };
 
+
   return (
     <div className="div-main">
       <h2>Income Management</h2>

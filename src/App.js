@@ -9,8 +9,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import History from "./pages/History/History";
 import SaveTips from "./pages/SaveTips/SaveTips";
 import AddIncome from "./pages/Income/AddIncome";
+import AddExpenses from "./pages/Expenses/AddExpenses";
 import EditIncome from "./pages/Income/EditIncome"; // Pastikan komponen ini diimpor
-import AddExpences from "./pages/Expenses/AddExpences";
+import EditExpenses from "./pages/Expenses/EditExpenses"; 
 import Sidebar from "./component/Frame/Sidebar";
 import Navbar from "./component/Frame/Navbar";
 import { Box, Container, Grid, Stack } from "@mui/material";
@@ -60,7 +61,8 @@ function App() {
                         <Route path="/income/add" element={<AddIncome />} />
                         <Route path="/income/edit/:id" element={<EditIncome />} /> {/* Rute EditIncome */}
                         <Route path="/expenses" element={<Expences />} />
-                        <Route path="/expenses/add" element={<AddExpences />} />
+                        <Route path="/expenses/add" element={<AddExpenses />} />
+                        <Route path="/expenses/edit" element={<EditExpenses />} />
                         <Route path="/history" element={<History />} />
                         <Route path="/savetips" element={<SaveTips />} />
                     </Route>

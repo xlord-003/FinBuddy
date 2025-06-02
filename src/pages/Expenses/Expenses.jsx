@@ -99,16 +99,16 @@ const Expences = () => {
 
 
     const handleEdit = (weekNumber) => {
-        console.log(`Edit week ${weekNumber}`);
-        navigate(`/expenses/add?editWeek=${weekNumber}`);
-    };
+    console.log(`Edit week ${weekNumber}`);
+    navigate(`/expenses/edit?editWeek=${weekNumber}`); // Kirim weekNumber sebagai query param
+};
 
     const handleDelete = async (weekNumber) => {
         if (!currentUID) {
-            toast.error("User tidak ditemukan.");
+            toast.error("User not found.");
             return;
         }
-        if (window.confirm(`Apakah Anda yakin ingin menghapus semua data pengeluaran untuk Minggu ${weekNumber}?`)) {
+        if (window.confirm(`Are you sure you want to delete all spending data for Week${weekNumber}?`)) {
             setIsLoading(true);
             const userExpensesDocRef = doc(db, "expenses", currentUID);
             const weekKeyToDelete = `week_${weekNumber}`;
@@ -140,16 +140,25 @@ const Expences = () => {
                 updatePayload.overall_totals = newOverallTotals;
 
                 await updateDoc(userExpensesDocRef, updatePayload);
-                toast.success(`Data Minggu ${weekNumber} berhasil dihapus.`);
+                toast.success(`Week ${weekNumber} data successfully deleted.`);
                 fetchExpenseData(currentUID);
             } catch (error) {
                 console.error(`Error deleting week ${weekNumber} data:`, error);
-                toast.error(`Gagal menghapus data Minggu ${weekNumber}.`);
+                toast.error(`Failed to delete Sunday data ${weekNumber}.`);
             } finally {
                 setIsLoading(false);
             }
         }
     };
+
+        if (isLoading) {
+            return (
+                <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
+                    <CircularProgress />
+                    <Typography>Loading...</Typography>
+                </div>
+            );
+        }
 
     return (
         <div className='div-main'>
@@ -171,9 +180,9 @@ const Expences = () => {
             >
                 <Typography variant="body1" sx={{ marginTop: '1rem', color: 'var(--primary-font-color)' }}>
                     {areAllWeeksDataFilled
-                        ? "Anda telah mengisi semua data pengeluaran mingguan Anda!"
+                        ? "You have filled in all your weekly expense data!"
                         
-                        : `Anda Belum memasukkan Pengeluaran mingguan Anda!`}
+                        : `You Have Not Entered Your Weekly Expenses!`}
                 </Typography>
 
                 <Link to='/expenses/add' style={{ width: 'fit-content', marginTop: '1rem' }}>
@@ -198,7 +207,7 @@ const Expences = () => {
                                     maxWidth: { xs: '100%', sm: '48%', md: '23%' },
                                     minWidth: 220,
                                     height: 240,
-                                    borderRadius: '8px',
+                                    borderRadius: 1,
                                     backgroundColor: 'var(--secondary-color)',
                                     p: 2,
                                     display: 'flex',
@@ -210,7 +219,7 @@ const Expences = () => {
                             >
                                 <Box>
                                     <Typography variant="h5" sx={{ color: 'var(--primary-font-color)', fontWeight: 'bold' }}>
-                                        Minggu {weekNum}
+                                        Week {weekNum}
                                     </Typography>
                                     <Typography variant="h6" sx={{ color: 'white', mt: 5, wordBreak: 'break-all' }}>
                                         Rp {total.toLocaleString('id-ID')}
