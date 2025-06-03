@@ -99,9 +99,9 @@ const Expences = () => {
 
 
     const handleEdit = (weekNumber) => {
-    console.log(`Edit week ${weekNumber}`);
-    navigate(`/expenses/edit?editWeek=${weekNumber}`); // Kirim weekNumber sebagai query param
-};
+        console.log(`Edit week ${weekNumber}`);
+        navigate(`/expenses/edit?editWeek=${weekNumber}`); // Kirim weekNumber sebagai query param
+    };
 
     const handleDelete = async (weekNumber) => {
         if (!currentUID) {
@@ -132,7 +132,7 @@ const Expences = () => {
                     }
                     newOverallTotals[`Total_${category}`] = sumForCategory;
                 });
-                
+
                 const remainingWeeksWithData = Object.keys(currentData).filter(key => key.startsWith('week_') && currentData[key] !== undefined);
                 if (remainingWeeksWithData.length === 0) {
                     expenseCategories.forEach(category => newOverallTotals[`Total_${category}`] = 0);
@@ -151,14 +151,14 @@ const Expences = () => {
         }
     };
 
-        if (isLoading) {
-            return (
-                <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
-                    <CircularProgress />
-                    <Typography>Loading...</Typography>
-                </div>
-            );
-        }
+    if (isLoading) {
+        return (
+            <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
+                <CircularProgress />
+                <Typography>Loading...</Typography>
+            </div>
+        );
+    }
 
     return (
         <div className='div-main'>
@@ -168,26 +168,34 @@ const Expences = () => {
             <Box
                 sx={{
                     width: '100%',
-                    height: 150,
+                    minHeight: 170,
                     borderRadius: 1,
                     bgcolor: 'var(--secondary-color)',
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection: 'column',
-                    paddingTop: '1.5rem',
                 }}
             >
-                <Typography variant="body1" sx={{ marginTop: '1rem', color: 'var(--primary-font-color)' }}>
-                    {areAllWeeksDataFilled
-                        ? "You have filled in all your weekly expense data!"
-                        
-                        : `You Have Not Entered Your Weekly Expenses!`}
-                </Typography>
+                {/* Jika data penuh dan tidak */}
+                {areAllWeeksDataFilled
+                    ? (
+                        <Typography variant="body1" sx={{ color: 'var(--primary-font-color)' }}>
+                            You have filled in all your weekly expense data!
+                        </Typography>
+                    )
+                    : (
+                        <Box sx={{bgcolor: '', justifyContent: 'space-between', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+                            <Typography variant="body1" sx={{ color: 'var(--primary-font-color)' }}>
+                                You Have Not Entered Your Weekly Expenses!
+                            </Typography>
+                            <Link to='/expenses/add' style={{ width: 'fit-content', marginTop: '2rem' }}>
+                                <button className='btn-main' style={{ margin:'0' }}> Add Expences </button>
+                            </Link>
+                        </Box>
+                    )
+                }
 
-                <Link to='/expenses/add' style={{ width: 'fit-content', marginTop: '1rem' }}>
-                    <button className='btn-main'> Add Expences </button>
-                </Link>
             </Box>
 
             {weekDataSummaries.length > 0 && (
@@ -230,7 +238,7 @@ const Expences = () => {
                                     <Button
                                         fullWidth
                                         variant="outlined"
-                                        color="primary" 
+                                        color="primary"
                                         onClick={() => handleEdit(weekNum)}
                                     >
                                         Edit
@@ -249,7 +257,7 @@ const Expences = () => {
                     ))}
                 </Box>
             )}
-            
+
         </div>
     );
 }

@@ -16,6 +16,7 @@ const EXPENSE_CATEGORIES = [
 const MAX_WEEKS_CONST = 4; // total minggu boss
 const INPUTS_PER_PAGE_CONST = 5; //kasi nilai langsung unutk total inputan per page
 
+// komponen input
 const Input = React.memo(({ name, label, value, onChange }) => {
     return (
         <div className="form-input">
@@ -240,14 +241,7 @@ const AddExpenses = () => {
     // jika sudah penuh
     if (allWeeksFilled) {
         return (
-            <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
-                <Typography variant="h5" gutterBottom>
-                    All expenditure data (weekly) has been recorded!
-                </Typography>
-                <Button variant="contained" onClick={() => navigate("/expenses")}>
-                    Back to Expenses
-                </Button>
-            </div>
+            navigate("/expenses") //tak jadi pakai
         );
     }
 

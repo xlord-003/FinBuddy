@@ -130,7 +130,6 @@ const History = () => {
         fetchedOverallTotals = expensesData.overall_totals || {}; // nilai total perbaris
         setOverallTotals(fetchedOverallTotals);
 
-
         expenseCategories.forEach(category => {
           const row = {
             id: category.toLowerCase().replace(/_/g, '-'),

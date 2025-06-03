@@ -238,7 +238,7 @@ const EditExpenses = () => {
 
     return (
         <div className='div-add'>
-            <Typography variant="h4" component="h2" sx={{ mb: 2, fontWeight: 'bold', color: 'var(--primary-font-color)' }}>
+            <Typography variant="h5" component="h2" sx={{ mb: 2, mt: 2, fontWeight: 'bold', color: 'var(--primary-font-color)' }}>
                 Edit Expenses
             </Typography>
             <Box sx={{
