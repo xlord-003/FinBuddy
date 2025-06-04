@@ -151,7 +151,7 @@ const SaveTips = () => {
             <Box sx={{ width: '100%', }}>
                 {isLoadingData ? (
                     <Box sx={{ display: 'flex', justifyContent: 'center', my: 3 }}>
-                        <CircularProgress/>
+                        <CircularProgress />
                     </Box>
                 ) : (
                     <Grid container spacing={3} justifyContent="center" sx={{ marginBottom: '2rem', gap: '5rem' }}>
@@ -182,7 +182,7 @@ const SaveTips = () => {
                                         className="btn-main"
                                         onClick={() => handleCekClick(option.type)}
                                         sx={{
-                                            
+
                                             color: 'white',
                                             padding: '8px 30px',
                                             borderRadius: '6px',
@@ -198,6 +198,12 @@ const SaveTips = () => {
                         ))}
                     </Grid>
                 )}
+            </Box>
+
+            <Box sx={{ width: '100%', spacing: 2 }}>
+                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '1rem', bgcolor: 'var(--secondary-color)' }}>tht</Box>
+                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>tht</Box>
+                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>tht</Box>
             </Box>
             {/* Untuk PopUp */}
             {dialogDetails && (
