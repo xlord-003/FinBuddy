@@ -55,7 +55,7 @@ const Expences = () => {
             }
         } catch (error) {
             console.error("Error fetching expense data:", error);
-            toast.error("Gagal mengambil data pengeluaran.");
+            toast.error("Failed to retrieve production data.");
             setExpenseDocData({});
         } finally {
             setIsLoading(false);
@@ -151,52 +151,50 @@ const Expences = () => {
         }
     };
 
-    if (isLoading) {
-        return (
-            <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
-                <CircularProgress />
-                <Typography>Loading...</Typography>
-            </div>
-        );
-    }
-
     return (
         <div className='div-main'>
             <h2>Expenses Tracking</h2>
             <Box sx={{ height: '1px', width: '100%', backgroundColor: 'var(--secondary-font-color)', marginBottom: '2rem' }} />
 
-            <Box
-                sx={{
-                    width: '100%',
-                    minHeight: 170,
-                    borderRadius: 1,
-                    bgcolor: 'var(--secondary-color)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                }}
-            >
-                {/* Jika data penuh dan tidak */}
-                {areAllWeeksDataFilled
-                    ? (
-                        <Typography variant="body1" sx={{ color: 'var(--primary-font-color)' }}>
-                            You have filled in all your weekly expense data!
-                        </Typography>
-                    )
-                    : (
-                        <Box sx={{bgcolor: '', justifyContent: 'space-between', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+            {isLoading ? (
+                <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
+                    <CircularProgress />
+                    <Typography>Loading...</Typography>
+                </div>
+            ) : (
+                <Box
+                    sx={{
+                        width: '100%',
+                        minHeight: 170,
+                        borderRadius: 1,
+                        bgcolor: 'var(--secondary-color)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: 'column',
+                    }}
+                >
+                    {/* Jika data penuh dan tidak */}
+                    {areAllWeeksDataFilled
+                        ? (
                             <Typography variant="body1" sx={{ color: 'var(--primary-font-color)' }}>
-                                You Have Not Entered Your Weekly Expenses!
+                                You have filled in all your weekly expense data!
                             </Typography>
-                            <Link to='/expenses/add' style={{ width: 'fit-content', marginTop: '2rem' }}>
-                                <button className='btn-main' style={{ margin:'0' }}> Add Expences </button>
-                            </Link>
-                        </Box>
-                    )
-                }
+                        )
+                        : (
+                            <Box sx={{ bgcolor: '', justifyContent: 'space-between', alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
+                                <Typography variant="body1" sx={{ color: 'var(--primary-font-color)' }}>
+                                    You Have Not Entered Your Weekly Expenses!
+                                </Typography>
+                                <Link to='/expenses/add' style={{ width: 'fit-content', marginTop: '2rem' }}>
+                                    <button className='btn-main' style={{ margin: '0' }}> Add Expences </button>
+                                </Link>
+                            </Box>
+                        )
+                    }
+                </Box>
+            )}
 
-            </Box>
 
             {weekDataSummaries.length > 0 && (
                 <Box

@@ -201,9 +201,15 @@ const SaveTips = () => {
             </Box>
 
             <Box sx={{ width: '100%', spacing: 2 }}>
-                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '1rem', bgcolor: 'var(--secondary-color)' }}>tht</Box>
-                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>tht</Box>
-                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>tht</Box>
+                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '1rem', bgcolor: 'var(--secondary-color)' }}>
+                    penjelasan dari ini.....
+                    </Box>
+                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>
+                    tht
+                    </Box>
+                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>
+                    tht
+                    </Box>
             </Box>
             {/* Untuk PopUp */}
             {dialogDetails && (

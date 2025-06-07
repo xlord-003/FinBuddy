@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import {
   Box,
   Button,
+  CircularProgress,
   Paper,
   Typography,
 } from "@mui/material";
@@ -14,6 +15,7 @@ import {
 const Income = () => {
   const [incomes, setIncomes] = useState([]);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchIncomes = async () => {
@@ -29,6 +31,7 @@ const Income = () => {
           }));
           console.log("Income list:", incomeList);
           setIncomes(incomeList);
+          setIsLoading(false);
         } else {
           console.log("No user logged in");
           toast.error("Silakan login terlebih dahulu", {
@@ -85,8 +88,8 @@ const Income = () => {
   };
 
   const handleEdit = (id) => {
-  navigate(`/income/edit/${id}`); // Sesuaikan dengan rute params
-};
+    navigate(`/income/edit/${id}`); // Sesuaikan dengan rute params
+  };
 
 
   return (
@@ -101,71 +104,81 @@ const Income = () => {
         }}
       />
 
-      {incomes.length === 0 ? (
-        <Box
-          sx={{
-            width: "100%",
-            height: 150,
-            borderRadius: 1,
-            bgcolor: "var(--secondary-color)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "column",
-            paddingTop: "20px",
-          }}
-        >
-          <label style={{ marginTop: "1rem" }}>
-            Anda belum memasukkan data keuangan bulanan anda
-          </label>
-          <Link to="/income/add">
-            <button className="btn-main">Add Income</button>
-          </Link>
-        </Box>
+      {isLoading ? (
+        <div className='div-add' style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <CircularProgress />
+          <Typography>Loading...</Typography>
+        </div>
       ) : (
-        <Box>
-          <Paper
+        incomes.length === 0 ? (
+          <Box
             sx={{
-              padding: 2,
-              marginBottom: 2,
+              width: "100%",
+              height: 150,
               borderRadius: 1,
               bgcolor: "var(--secondary-color)",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexDirection: "column",
+              paddingTop: "20px",
+            }}
+          >
+            <label style={{ marginTop: "1rem" }}>
+              Anda belum memasukkan data keuangan bulanan anda
+            </label>
+            <Link to="/income/add">
+              <button className="btn-main">Add Income</button>
+            </Link>
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              width: '100%',
+              minHeight: 170,
+              borderRadius: 1,
+              bgcolor: 'var(--secondary-color)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
             }}
           >
             <Typography variant="body1" color="white">
               Anda telah mengisi data keuangan anda!
             </Typography>
-          </Paper>
-          {incomes.map((income) => (
-            <Box
-              key={income.id}
-              sx={{
-                padding: 2,
-                marginBottom: 2,
-                border: "0px solid #ccc",
-                borderRadius: 1,
-              }}
-            >
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={() => handleEdit(income.id)}
-                sx={{ mr: 1, mb: 1 }}
+            {incomes.map((income) => (
+              <Box
+                key={income.id}
+                sx={{
+                  padding: 2,
+                  border: "0px solid #ccc",
+                  borderRadius: 1,
+                }}
               >
-                Edit
-              </Button>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={() => handleDelete(income.id)}
-                sx={{ mb: 1 }}
-              >
-                Delete
-              </Button>
-            </Box>
-          ))}
-        </Box>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => handleEdit(income.id)}
+                  sx={{ mr: 2 }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  onClick={() => handleDelete(income.id)}
+                  sx={{}}
+                >
+                  Delete
+                </Button>
+              </Box>
+            ))}
+
+          </Box>
+        )
       )}
+
     </div>
   );
 };
