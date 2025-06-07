@@ -1,86 +1,112 @@
 import { useEffect, useState } from "react";
 import "./LoginForm.css";
-import { Link } from "react-router-dom";
-import logo from '../../image/logo.png';
-
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebaseConfig";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import logo from "../../image/logo.png";
 
 const LoginForm = () => {
     const [error, setError] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [value, setValue] = useState("");
+    const navigate = useNavigate();
 
-    const home = useNavigate() //home/main
-
-    const prosesLogin = (e) => {
+    const prosesLogin = async (e) => {
         e.preventDefault();
-
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // signed in user
-                const user = userCredential.user;
-                console.log(user);
-                localStorage.setItem("email", user.email);
-                home("/dashboard") //jika benar > home/main
-            })
-            .catch((error) => {
-                setError(true);
-                const errorCode = error.code;
-                const errorMessage = error.message;
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            localStorage.setItem("email", user.email);
+            toast.success("Logged in successfully!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
             });
-
+            navigate("/dashboard");
+        } catch (error) {
+            setError(true);
+            toast.error("Failed to log in: " + error.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+            });
+        }
     };
 
-    //login with google
-    const googleSignIn = () => {
-        signInWithPopup(auth, provider).then((data) => {
-            setValue(data.user.email)
-            localStorage.setItem('email', data.user.email)
-            home("/dashboard")
-        })
-
+    const googleSignIn = async () => {
+        try {
+            const data = await signInWithPopup(auth, provider);
+            setValue(data.user.email);
+            localStorage.setItem("email", data.user.email);
+            toast.success("Logged in with Google successfully!", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+            });
+            navigate("/dashboard");
+        } catch (error) {
+            toast.error("Failed to log in with Google: " + error.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+            });
+        }
     };
 
     useEffect(() => {
-        setValue(localStorage.getItem('email'))
-    })
+        setValue(localStorage.getItem("email"));
+    }, []);
 
     return (
-
-        <div class="login-container">
-
-            <div class="login-finbuddy">
+        <div className="login-container">
+            <div className="login-finbuddy">
                 <img src={logo} alt="FinBuddy" />
-                <p class="login-title">
-                    Explore FinBuddy
-                </p>
+                <p className="login-title">Explore FinBuddy</p>
                 <p>Your Personal Coach for Smarter Saving</p>
             </div>
 
-            <div class="form-container">
-                <p class="title">Welcome Back!</p>
-                <form onSubmit={prosesLogin} class="form-login">
-                    <div class="form-title">
-                        <p class="sub-title">
-                            Don’t have an account? 
-                            <Link to="/register"> Create new account</Link>
+            <div className="form-container">
+                <p className="title">Welcome Back!</p>
+                <form onSubmit={prosesLogin} className="form-login">
+                    <div className="form-title">
+                        <p className="sub-title">
+                            Don’t have an account? <Link to="/register">Create new account</Link>
                         </p>
                     </div>
-                    <div class="form-input">
-                        <label class="title" For="Email">Email</label>
+                    <div className="form-input">
+                        <label className="title" htmlFor="Email">
+                            Email
+                        </label>
                         <input
-                            type="Email"
+                            type="email"
                             placeholder="Enter your email"
                             title="Email"
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-                    <div class="form-input">
-                        <label class="title" For="Password">Password</label>
+                    <div className="form-input">
+                        <label className="title" htmlFor="Password">
+                            Password
+                        </label>
                         <input
                             type="password"
                             placeholder="••••••••••••••••"
@@ -89,20 +115,25 @@ const LoginForm = () => {
                             required
                         />
                     </div>
-                    <div class="froget-password">
+                    <div className="froget-password">
                         <a href="#">Forgot password?</a>
                     </div>
-                    <div class="form-button">
-                        <button type="submit" class="login-button"  corsor= "pointer" >Login now</button>
-                        {error && <span class="error">wrong email or password</span>}
-                        <label class="or">or</label>
-                        <button type="button" class="google-button" onClick={googleSignIn} >
-                            <img class="google-icon" src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google" />
-                            <label For="Button-google">Login with Google</label>
+                    <div className="form-button">
+                        <button type="submit" className="login-button" style={{ cursor: "pointer" }}>
+                            Login now
+                        </button>
+                        {error && <span className="error">Wrong email or password</span>}
+                        <label className="or">or</label>
+                        <button type="button" className="google-button" onClick={googleSignIn}>
+                            <img
+                                className="google-icon"
+                                src="https://img.icons8.com/color/48/000000/google-logo.png"
+                                alt="Google"
+                            />
+                            <label htmlFor="Button-google">Login with Google</label>
                         </button>
                     </div>
                 </form>
-
             </div>
         </div>
     );
