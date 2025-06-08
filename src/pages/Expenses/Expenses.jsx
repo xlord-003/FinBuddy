@@ -241,12 +241,27 @@ const Expences = () => {
                                     >
                                         Edit
                                     </Button>
-                                    <Button
+                                    {/* <Button
                                         fullWidth
                                         variant="outlined"
                                         color="error"
                                         onClick={() => handleDelete(weekNum)}
                                     >
+                                        Delete
+                                    </Button> */}
+                                    <Button
+                                        fullWidth
+                                        variant="outlined"
+                                        color="error"
+                                        onClick={() => handleDelete(weekNum)}
+                                        sx={{
+                                            '&:hover': {
+                                            backgroundColor: 'error.main', // Warna merah dari tema error
+                                            color: 'white', // Teks menjadi putih saat hover
+                                            borderColor: 'error.main', // Border tetap merah
+                                            },
+                                        }}
+                                        >
                                         Delete
                                     </Button>
                                 </Box>

@@ -125,7 +125,7 @@ const Income = () => {
             }}
           >
             <label style={{ marginTop: "1rem" }}>
-              Anda belum memasukkan data keuangan bulanan anda
+              You have not yet entered your monthly financial data!
             </label>
             <Link to="/income/add">
               <button className="btn-main">Add Income</button>
@@ -145,7 +145,7 @@ const Income = () => {
             }}
           >
             <Typography variant="body1" color="white">
-              Anda telah mengisi data keuangan anda!
+              "You have filled in your financial data!"
             </Typography>
             {incomes.map((income) => (
               <Box
@@ -165,13 +165,19 @@ const Income = () => {
                   Edit
                 </Button>
                 <Button
-                  variant="outlined"
-                  color="error"
-                  onClick={() => handleDelete(income.id)}
-                  sx={{}}
-                >
-                  Delete
-                </Button>
+                variant="outlined"
+                color="error"
+                onClick={() => handleDelete(income.id)}
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'error.main', 
+                    color: 'white', 
+                    borderColor: 'error.main', 
+                  },
+                }}
+              >
+                Delete
+              </Button>
               </Box>
             ))}
 

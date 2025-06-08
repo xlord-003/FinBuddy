@@ -41,6 +41,7 @@ const Dashboard = () => {
     const [totalIncome, setTotalIncome] = useState(0);
     const [totalExpenses, setTotalExpenses] = useState(0);
     const [balance, setBalance] = useState(0);
+    const [scholarship, setScholarship] = useState(0);
 
     // grafik
     const [lineChartData, setLineChartData] = useState([]);
@@ -56,6 +57,7 @@ const Dashboard = () => {
                 setCurrentUID(null);
                 setIsLoading(false);
                 setUserName('');
+                setScholarship(0);
             }
         });
         return () => unsubscribe();
@@ -78,14 +80,17 @@ const Dashboard = () => {
 
             // --- Income ---
             let calculatedTotalIncome = 0;
+            let scholarshipAmount =0 ;
             if (incomeDocSnap.exists()) {
                 const incomeData = incomeDocSnap.data();
+                scholarshipAmount = parseFloat(incomeData.scholarship) || 0;
                 calculatedTotalIncome =
                     (parseFloat(incomeData.income) || 0) +
                     (parseFloat(incomeData.scholarship) || 0) +
                     (parseFloat(incomeData.tuition_fee) || 0);
             }
             setTotalIncome(calculatedTotalIncome);
+            setScholarship(scholarshipAmount);
             const weeklyIncome = calculatedTotalIncome / 4; // total income di bagi 4 karena ada 4 minggu
 
             // --- Expenses ---
@@ -214,7 +219,7 @@ const Dashboard = () => {
                         Welcome back, {isLoading ? '' : (userName || 'Guest')}!
                     </Typography>
                     <Typography sx={{ color: 'var(--secondary-font-color)' }}>
-                        Yesterday you......
+                        How's it going?
                     </Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -257,7 +262,8 @@ const Dashboard = () => {
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
                     <SummaryCard
-                        title="-- (APAPAPPAPAP) --" value="lupa bos"
+                        title="Scholarship"
+                        value={formatToRupiah(scholarship)}
                         isLoading={isLoading}
                     />
                 </Grid>
