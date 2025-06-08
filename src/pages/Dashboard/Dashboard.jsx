@@ -6,10 +6,6 @@ const Dashboard = () => {
     <>
       <div className="main">
         <h1>Dashboard</h1>
-        <h1>Dashboard</h1>
-        <h1>Dashboard</h1>
-        <h1>Dashboard</h1>
-        <h1>Dashboard</h1>
       </div>
       <Chatbot />
     </>
