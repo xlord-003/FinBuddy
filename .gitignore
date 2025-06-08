@@ -8,6 +8,15 @@
 # testing
 /coverage
 
+# File besar
+kb_embeddings.pkl
+model/finbuddy-model/model.safetensors
+model
+
+# File sementara Python
+__pycache__/
+*.pyc
+
 # production
 /build
 

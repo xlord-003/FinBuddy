@@ -1,0 +1,11 @@
+# Pastikan file teks menggunakan LF
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.js text eol=lf
+*.py text eol=lf
+
+# File biner tidak diubah
+*.safetensors binary
+*.pkl binary
+*.csv binary
