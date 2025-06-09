@@ -80,7 +80,7 @@ const Dashboard = () => {
 
             // --- Income ---
             let calculatedTotalIncome = 0;
-            let scholarshipAmount =0 ;
+            let scholarshipAmount = 0;
             if (incomeDocSnap.exists()) {
                 const incomeData = incomeDocSnap.data();
                 scholarshipAmount = parseFloat(incomeData.scholarship) || 0;
@@ -136,9 +136,10 @@ const Dashboard = () => {
                             finalPieData = processedForPie.filter(item => item.value > 0);
                         }
 
-                        setPieChartData(finalPieData.map(item => ({
+                        setPieChartData(finalPieData.map((item, idx) => ({
                             ...item,
-                            displayName: `${item.name} (${((item.value / calculatedTotalExpenses) * 100).toFixed(0)}%) `
+                            displayName: `${item.name} (${((item.value / calculatedTotalExpenses) * 100).toFixed(0)}%) `, // menampilkan persentase
+                            colorIndex: idx // menyesuaikan warna dengan index
                         })));
                     } else {
                         setPieChartData([]);
@@ -174,13 +175,14 @@ const Dashboard = () => {
 
     const CustomTooltip = ({ active, payload, label }) => { // keterangan piechart
         if (active && payload && payload.length) {
+            const colorIndex = payload[0]?.payload?.colorIndex ?? 0;
             return (
                 <div
                     style={{
                         backgroundColor: 'var(--primary-color)',
                         padding: '10px 15px',
                         border: '1px solid var(--border-color)',
-                        color: 'var(--primary-font-color)'
+                        color: PIE_CHART_COLORS[colorIndex], //warna sesui dengan pie colornya
                     }}
                 >
                     {payload.map((pld, index) => (
@@ -208,7 +210,7 @@ const Dashboard = () => {
         return value;
     };
 
-    const PIE_CHART_COLORS = ['#6A0DAD', '#9370DB', '#FF6347', '#FFA500'];
+    const PIE_CHART_COLORS = ['#B50FD6', '#9370DB', '#FF6347', '#FFA500'];
 
     return (
         <div className="div-main" >
@@ -354,7 +356,7 @@ const Dashboard = () => {
                                         <Tooltip
                                             content={<CustomTooltip />} // hofernya
                                         />
-                                        <Legend verticalAlign="middle" align="right" layout="vertical" iconSize={10} />
+                                        <Legend verticalAlign="middle" align="right" layout="vertical" iconSize={15} borderRadius={1} />
                                     </PieChart>
                                 </ResponsiveContainer>
                             ) : (
