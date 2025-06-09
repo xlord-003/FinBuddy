@@ -206,8 +206,8 @@ const Dashboard = () => {
 
     const yAxisFormatter = (value) => {
         if (value >= 1000000) return `${(value / 1000000).toFixed(2)} M`;
-        if (value >= 1000) return `${(value / 1000)} K`;
-        return value.toFixed(2);
+        if (value >= 1000) return `${(value / 1000).toFixed(0)} K`;
+        return value;
     };
 
     const PIE_CHART_COLORS = ['#B50FD6', '#9370DB', '#FF6347', '#FFA500'];
@@ -296,7 +296,7 @@ const Dashboard = () => {
                                 </Box>
                             ) : (
                                 <ResponsiveContainer width="100%" height="120%">
-                                    <LineChart data={lineChartData} margin={{ top: 1, right: 20, left: -5, bottom: 5 }}>
+                                    <LineChart data={lineChartData} margin={{ top: 20, right: 25, left: 5, bottom: 5 }} backgroundColor="red">
                                         <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
                                         <XAxis dataKey="week" tick={{ fill: 'var(--secondary-font-color)' }} stroke="var(--secondary-font-color)" />
                                         <YAxis tick={{ fill: 'var(--secondary-font-color)' }} stroke="var(--secondary-font-color)" domain={[0, yAxisMax]} tickFormatter={yAxisFormatter} />
