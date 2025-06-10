@@ -16,6 +16,7 @@ import EditIncome from "./pages/Income/EditIncome"; // Pastikan komponen ini dii
 import EditExpenses from "./pages/Expenses/EditExpenses";
 import Sidebar from "./component/Frame/Sidebar";
 import Navbar from "./component/Frame/Navbar";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage"; // Pastikan komponen ini diimpor
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -137,35 +138,7 @@ function App() {
                         }
                     />
                 )}
-
-
-
-
-                {/* 
-                <Route element={<ProtectedRoutes />}>
-                    <Route
-                        element={
-                            <Box>
-                                <Navbar />
-                                <Stack direction="row" spacing={2} justifyContent="space-between">
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={3}>
-                                            <Sidebar />
-                                        </Grid>
-                                        <Grid item xs={9}>
-                                            <Outlet />
-                                        </Grid>
-                                    </Grid>
-                                </Stack>
-                            </Box>
-                        }
-                    >
-
-                    </Route>
-                </Route> */}
-
-
-
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </Router>
     );
