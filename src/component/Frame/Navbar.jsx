@@ -13,7 +13,6 @@ import {
     Box
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { auth, db } from "../../firebaseConfig";
@@ -21,6 +20,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import logo from '../../image/logo.png';
 import { getAuth, signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const StyledToolbar = styled(Toolbar)({
     display: "flex",
@@ -112,6 +112,7 @@ const Navbar = ({ onMenuClick }) => {
         try {
             await signOut(auth);
             handleClose();
+            toast.success("Logged out successfully!");
             navigate("/login");
         } catch (error) {
             console.error("Error signing out:", error);

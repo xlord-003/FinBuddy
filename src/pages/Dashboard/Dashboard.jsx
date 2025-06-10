@@ -17,7 +17,8 @@ const SummaryCard = ({ title, value, isLoading }) => (
             color: 'white',
             borderRadius: '10px',
             minHeight: '120px',
-            minWidth: '260px',
+            minWidth: '255px',
+            width: '90%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'start',
@@ -216,7 +217,7 @@ const Dashboard = () => {
         <>
             <div className="div-main" >
                 {/* Header */}
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 1, mb: 1.5 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mb: 1.5 }}>
                     <Box>
                         <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'var(--primary-font-color)' }}>
                             Welcome back, {isLoading ? '' : (userName || 'Guest')}!
@@ -243,7 +244,13 @@ const Dashboard = () => {
                     }}
                 />
 
-                <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
+                <Grid
+                    container
+                    spacing={{ xs: 2, sm: 2.5, md: 3 }}
+                    justifyContent="center"
+                    alignItems="stretch"
+                    sx={{ width: '100%', margin: 0 }}
+                >
 
                     <Grid item xs={12} sm={6} md={3}>
                         <SummaryCard
@@ -281,7 +288,7 @@ const Dashboard = () => {
                                 color: 'var(--primary-font-color)',
                                 borderRadius: '10px',
                                 height: { xs: 200, sm: 300 },
-                                width: { xs: 300, sm: 560 },
+                                width: { xs: 300, sm: 555 },
                                 minWidth: 'auto',
                             }}
                         >
@@ -322,7 +329,7 @@ const Dashboard = () => {
                                 color: 'var(--primary-font-color)',
                                 borderRadius: '10px',
                                 height: { xs: 200, sm: 300 },
-                                width: { xs: 300, sm: 560 },
+                                width: { xs: 300, sm: 555 },
                                 minWidth: 'auto',
                             }}
                         >

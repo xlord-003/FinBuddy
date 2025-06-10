@@ -182,7 +182,7 @@ const History = () => {
 
   return (
     <div className="div-main">
-      <Box sx={{ marginTop: '1rem', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', paddingX: { xs: 1, md: 2 } }}>
+      <Box sx={{  width: '100%', display: 'flex', flexDirection: 'column' }}>
         {/* Income */}
         <Box mb={4}>
           <Typography variant="h4" gutterBottom component="h2" sx={{ fontWeight: 'bold' }}>
@@ -236,7 +236,7 @@ const History = () => {
           </Typography>
           {expenseRows.length > 0 ? (
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-              <TableContainer sx={{ maxHeight: 250 }}>
+              <TableContainer sx={{ maxHeight: 250, overflowX: 'auto' }}>
                 <Table stickyHeader aria-label="sticky expenses table">
                   <TableHead>
                     <TableRow>

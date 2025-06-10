@@ -153,7 +153,8 @@ const Expences = () => {
 
     return (
         <div className='div-main'>
-            <h2>Expenses Tracking</h2>
+            <label style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '1rem'}}>Expenses Tracking</label>
+            {/* <h2></h2> */}
             <Box sx={{ height: '1px', width: '100%', backgroundColor: 'var(--secondary-font-color)', marginBottom: '2rem' }} />
 
             {isLoading ? (
@@ -241,14 +242,6 @@ const Expences = () => {
                                     >
                                         Edit
                                     </Button>
-                                    {/* <Button
-                                        fullWidth
-                                        variant="outlined"
-                                        color="error"
-                                        onClick={() => handleDelete(weekNum)}
-                                    >
-                                        Delete
-                                    </Button> */}
                                     <Button
                                         fullWidth
                                         variant="outlined"
@@ -256,9 +249,9 @@ const Expences = () => {
                                         onClick={() => handleDelete(weekNum)}
                                         sx={{
                                             '&:hover': {
-                                            backgroundColor: 'error.main', // Warna merah dari tema error
-                                            color: 'white', // Teks menjadi putih saat hover
-                                            borderColor: 'error.main', // Border tetap merah
+                                            
+                                            color: 'white', 
+                                        
                                             },
                                         }}
                                         >

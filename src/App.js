@@ -108,8 +108,8 @@ function App() {
                                             flex: 1,
                                             p: { xs: 2, sm: 3 },
                                             bgcolor: 'var(--background-color)',
-                                            height: '100%', // Fill available height
-                                            overflow: 'hidden', // Disable scrolling
+                                            // height: '100%', // HAPUS baris ini jika tidak perlu
+                                            overflowY: 'auto', // Ganti dari 'hidden' ke 'auto'
                                             width: {
                                                 xs: '100%',
                                                 md: sidebarOpen ? 'calc(100% - 250px)' : '100%',
@@ -138,7 +138,7 @@ function App() {
 
 
 
-{/* 
+                {/* 
                 <Route element={<ProtectedRoutes />}>
                     <Route
                         element={

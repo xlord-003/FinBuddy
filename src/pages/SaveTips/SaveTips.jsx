@@ -138,8 +138,9 @@ const SaveTips = () => {
     };
 
     return (
-        <div className="div-main" style={{ paddingBottom: '2rem' }}>
-            <h2>Saving Tips</h2>
+        <div className="div-main">
+            <label style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '1rem'}}>Saving Tips</label>
+            {/* <h2>Saving Tips</h2> */}
             <Box
                 sx={{
                     height: "1px",
