@@ -11,6 +11,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
 import { toast } from 'react-toastify';
+import Chatbot from '../Dashboard/Chatbot';
 
 // tabel Expenses
 const columnsExpenses = [
@@ -274,6 +275,7 @@ const History = () => {
             <Typography sx={{ mt: 2, color: 'white' }}>There is no revenue data recorded yet.</Typography>
           )}
         </Box>
+        <Chatbot />
       </Box>
     </div>
   );

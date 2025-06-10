@@ -10,6 +10,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
+import Chatbot from "../Dashboard/Chatbot";
 // import "./Income.css";
 
 const Income = () => {
@@ -145,7 +146,7 @@ const Income = () => {
             }}
           >
             <Typography variant="body1" color="white">
-              "You have filled in your financial data!"
+              You have filled in your financial data!
             </Typography>
             {incomes.map((income) => (
               <Box
@@ -180,7 +181,7 @@ const Income = () => {
               </Button>
               </Box>
             ))}
-
+          <Chatbot />
           </Box>
         )
       )}

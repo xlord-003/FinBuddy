@@ -16,6 +16,7 @@ import Sidebar from "./component/Frame/Sidebar";
 import Navbar from "./component/Frame/Navbar";
 import { Box, Container, Grid, Stack } from "@mui/material";
 import ProtectedRoutes from "./component/utils/ProtectedRoutes";
+import Homepage from "./pages/Homepage/homepage";
 
 function App() {
     return (
@@ -33,7 +34,8 @@ function App() {
             {/* Definisi rute */}
             <Routes>
                 {/* Rute publik: Login dan Register */}
-                <Route path="/" element={<LoginForm />} />
+                <Route path="/" element={<Homepage />} />
+                {/* <Route path="/" element={<LoginForm />} /> */}
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/register" element={<RegisForm />} />
 

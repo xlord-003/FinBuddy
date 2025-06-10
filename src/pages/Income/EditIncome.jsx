@@ -5,6 +5,7 @@ import { auth, db } from "../../firebaseConfig";
 import { toast } from "react-toastify";
 import { NumericFormat } from "react-number-format";
 import { Box, Button, Grid } from "@mui/material";
+import Chatbot from "../Dashboard/Chatbot";
 
 const EditIncome = () => {
   const navigate = useNavigate();
@@ -252,6 +253,7 @@ const EditIncome = () => {
             </Button>
           </Grid>
         </Grid>
+        <Chatbot />
       </Box>
     </div>
   );

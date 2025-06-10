@@ -5,6 +5,7 @@ import { doc, getDoc, updateDoc, deleteField } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../../firebaseConfig";
 import { toast } from 'react-toastify';
+import Chatbot from '../Dashboard/Chatbot';
 
 const Expences = () => {
     const [expenseDocData, setExpenseDocData] = useState(null);
@@ -265,10 +266,12 @@ const Expences = () => {
                                         Delete
                                     </Button>
                                 </Box>
+                                <Chatbot />
                             </Paper>
                         )
                     ))}
                 </Box>
+                
             )}
 
         </div>

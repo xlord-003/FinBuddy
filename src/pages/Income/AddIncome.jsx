@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { NumericFormat } from "react-number-format";
 import { Box, Button, Grid } from "@mui/material";
 import { onAuthStateChanged } from "firebase/auth";
+import Chatbot from "../Dashboard/Chatbot";
 
 const AddIncome = () => {
   const navigate = useNavigate();
@@ -188,6 +189,7 @@ const AddIncome = () => {
             </Button>
           </Grid>
         </Grid>
+        <Chatbot />
       </Box>
     </div>
   );

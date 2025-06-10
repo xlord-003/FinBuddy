@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, Paper, Grid, CircularProgress, circularProgressClasses } from '@mui/material';
+import { Box, Typography, Paper, Grid, CircularProgress } from '@mui/material';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import Chatbot from './Chatbot';
 
 // kartu (4 kotak atas)
 const SummaryCard = ({ title, value, isLoading }) => (
@@ -32,9 +33,7 @@ const SummaryCard = ({ title, value, isLoading }) => (
     </Paper>
 );
 
-
 const Dashboard = () => {
-
     const [userName, setUserName] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [currentUID, setCurrentUID] = useState(null);
@@ -42,11 +41,10 @@ const Dashboard = () => {
     const [totalExpenses, setTotalExpenses] = useState(0);
     const [balance, setBalance] = useState(0);
     const [scholarship, setScholarship] = useState(0);
-
-    // grafik
+    const [spendingLabel, setSpendingLabel] = useState('Hemat'); // State untuk label prediksi
     const [lineChartData, setLineChartData] = useState([]);
     const [pieChartData, setPieChartData] = useState([]);
-    const [yAxisMax, setYAxisMax] = useState(500000); // dta default untuk y
+    const [yAxisMax, setYAxisMax] = useState(500000); // default untuk y
 
     useEffect(() => {
         const auth = getAuth();
@@ -58,6 +56,7 @@ const Dashboard = () => {
                 setIsLoading(false);
                 setUserName('');
                 setScholarship(0);
+                setSpendingLabel('Hemat');
             }
         });
         return () => unsubscribe();
@@ -80,44 +79,59 @@ const Dashboard = () => {
 
             // --- Income ---
             let calculatedTotalIncome = 0;
-            let scholarshipAmount =0 ;
+            let scholarshipAmount = 0;
+            let monthlyIncome = 0;
+            let tuitionFee = 0;
             if (incomeDocSnap.exists()) {
                 const incomeData = incomeDocSnap.data();
                 scholarshipAmount = parseFloat(incomeData.scholarship) || 0;
-                calculatedTotalIncome =
-                    (parseFloat(incomeData.income) || 0) +
-                    (parseFloat(incomeData.scholarship) || 0) +
-                    (parseFloat(incomeData.tuition_fee) || 0);
+                monthlyIncome = parseFloat(incomeData.income) || 0;
+                tuitionFee = parseFloat(incomeData.tuition_fee) || 0;
+                calculatedTotalIncome = monthlyIncome + scholarshipAmount + tuitionFee;
             }
             setTotalIncome(calculatedTotalIncome);
             setScholarship(scholarshipAmount);
-            const weeklyIncome = calculatedTotalIncome / 4; // total income di bagi 4 karena ada 4 minggu
+            const weeklyIncome = calculatedTotalIncome / 4;
 
             // --- Expenses ---
             let calculatedTotalExpenses = 0;
             const weeklyExpenses = [0, 0, 0, 0];
             let maxWeeklyValue = weeklyIncome;
+            let expenseCategories = {
+                housing: 0,
+                food: 0,
+                transportation: 0,
+                books_supplies: 0,
+                entertainment: 0,
+                personal_care: 0,
+                technology: 0,
+                health_wellness: 0,
+                miscellaneous: 0
+            };
 
             if (expensesDocSnap.exists()) {
                 const expensesData = expensesDocSnap.data();
 
-                // Kalkulasi untuk Line Chart
-                for (let i = 1; i <= 4; i++) {
-                    const weekKey = `week_${i}`;
-                    if (expensesData[weekKey] && typeof expensesData[weekKey] === 'object') {
-                        const weeklyTotal = Object.values(expensesData[weekKey])
-                            .reduce((sum, current) => sum + (parseFloat(current) || 0), 0);
-                        weeklyExpenses[i - 1] = weeklyTotal;
-                        if (weeklyTotal > maxWeeklyValue) maxWeeklyValue = weeklyTotal;
-                    }
-                }
-
-                // menghitung data unutk grafik
+                // Ambil data pengeluaran per kategori
                 if (expensesData.overall_totals && typeof expensesData.overall_totals === 'object') {
                     const totals = expensesData.overall_totals;
                     calculatedTotalExpenses = Object.values(totals)
                         .reduce((sum, current) => sum + (parseFloat(current) || 0), 0);
 
+                    // Map ke kategori untuk model
+                    expenseCategories = {
+                        housing: parseFloat(totals.Total_Housing) || 0,
+                        food: parseFloat(totals.Total_Food) || 0,
+                        transportation: parseFloat(totals.Total_Transportation) || 0,
+                        books_supplies: parseFloat(totals.Total_Books_Supplies) || 0,
+                        entertainment: parseFloat(totals.Total_Entertainment) || 0,
+                        personal_care: parseFloat(totals.Total_Personal_Care) || 0,
+                        technology: parseFloat(totals.Total_Technology) || 0,
+                        health_wellness: parseFloat(totals.Total_Health_Wellness) || 0,
+                        miscellaneous: parseFloat(totals.Total_Miscellaneous) || 0
+                    };
+
+                    // Pie chart data
                     if (calculatedTotalExpenses > 0) {
                         const processedForPie = Object.entries(totals)
                             .map(([key, value]) => ({
@@ -146,21 +160,52 @@ const Dashboard = () => {
                 } else {
                     setPieChartData([]);
                 }
+
+                // Kalkulasi untuk Line Chart
+                for (let i = 1; i <= 4; i++) {
+                    const weekKey = `week_${i}`;
+                    if (expensesData[weekKey] && typeof expensesData[weekKey] === 'object') {
+                        const weeklyTotal = Object.values(expensesData[weekKey])
+                            .reduce((sum, current) => sum + (parseFloat(current) || 0), 0);
+                        weeklyExpenses[i - 1] = weeklyTotal;
+                        if (weeklyTotal > maxWeeklyValue) maxWeeklyValue = weeklyTotal;
+                    }
+                }
             }
+
             setTotalExpenses(calculatedTotalExpenses);
             setBalance(calculatedTotalIncome - calculatedTotalExpenses);
-
-            // data untuk batas Y dan X
-            setYAxisMax(Math.ceil(maxWeeklyValue + 500000));
             setLineChartData([
                 { week: 'Week 1', Income: weeklyIncome, Expenses: weeklyExpenses[0] },
                 { week: 'Week 2', Income: weeklyIncome, Expenses: weeklyExpenses[1] },
                 { week: 'Week 3', Income: weeklyIncome, Expenses: weeklyExpenses[2] },
                 { week: 'Week 4', Income: weeklyIncome, Expenses: weeklyExpenses[3] },
             ]);
+            setYAxisMax(Math.ceil(maxWeeklyValue + 500000));
+
+            // Kirim data ke Flask untuk prediksi
+            const response = await fetch('http://localhost:5000/predict_behavior', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    monthly_income: monthlyIncome,
+                    financial_aid: scholarshipAmount,
+                    tuition: tuitionFee,
+                    ...expenseCategories,
+                }),
+            });
+
+            const result = await response.json();
+            if (result.label) {
+                setSpendingLabel(result.label);
+            } else {
+                console.error('Error from Flask:', result.error);
+                setSpendingLabel('Error');
+            }
 
         } catch (error) {
             console.error("Error fetching dashboard data:", error);
+            setSpendingLabel('Error');
         } finally {
             setIsLoading(false);
         }
@@ -172,7 +217,7 @@ const Dashboard = () => {
         }
     }, [currentUID, fetchDashboardData]);
 
-    const CustomTooltip = ({ active, payload, label }) => { // keterangan piechart
+    const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
                 <div
@@ -194,7 +239,6 @@ const Dashboard = () => {
         return null;
     };
 
-
     const formatToRupiah = (number) => {
         if (typeof number !== 'number') return 'Rp 0';
         return new Intl.NumberFormat('id-ID', {
@@ -211,7 +255,7 @@ const Dashboard = () => {
     const PIE_CHART_COLORS = ['#6A0DAD', '#9370DB', '#FF6347', '#FFA500'];
 
     return (
-        <div className="div-main" >
+        <div className="div-main">
             {/* Header */}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 1, mb: 1.5 }}>
                 <Box>
@@ -224,8 +268,18 @@ const Dashboard = () => {
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <WorkspacePremiumIcon sx={{ color: 'var(--third-color)' }} />
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '25px', color: 'var(--primary-font-color)' }}>
-                        Hemat
+                    <Typography
+                        variant="h5"
+                        sx={{
+                            fontWeight: 'bold',
+                            color:
+                                spendingLabel === 'Hemat' ? 'green' :
+                                spendingLabel === 'Normal' ? 'blue' : 
+                                spendingLabel === 'Boros' ? 'red': 'gray',
+                                
+                        }}
+                    >
+                        {spendingLabel}
                     </Typography>
                 </Box>
             </Box>
@@ -233,30 +287,32 @@ const Dashboard = () => {
             {/* garis */}
             <Box
                 sx={{
-                    height: "1px",
-                    width: "100%",
-                    backgroundColor: "var(--secondary-font-color)",
-                    marginBottom: "2rem"
+                    height: '1px',
+                    width: '100%',
+                    backgroundColor: 'var(--secondary-font-color)',
+                    marginBottom: '2rem'
                 }}
             />
 
             <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
-
                 <Grid item xs={12} sm={6} md={3}>
                     <SummaryCard
-                        title="Balance" value={formatToRupiah(balance)}
+                        title="Balance"
+                        value={formatToRupiah(balance)}
                         isLoading={isLoading}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
                     <SummaryCard
-                        title="Income" value={formatToRupiah(totalIncome)}
+                        title="Income"
+                        value={formatToRupiah(totalIncome)}
                         isLoading={isLoading}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
                     <SummaryCard
-                        title="Expenses" value={formatToRupiah(totalExpenses)}
+                        title="Expenses"
+                        value={formatToRupiah(totalExpenses)}
                         isLoading={isLoading}
                     />
                 </Grid>
@@ -285,8 +341,6 @@ const Dashboard = () => {
                         <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
                             Monthly Overview
                         </Typography>
-
-                        {/* kontainer untuk grafik (isi) */}
                         <Box sx={{ width: '100%', height: 'calc(100% - 100px)' }}>
                             {isLoading ? (
                                 <Box sx={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
@@ -328,10 +382,7 @@ const Dashboard = () => {
                         </Typography>
                         <Box sx={{ width: '100%', height: 'calc(100% - 40px)' }}>
                             {isLoading ? (
-                                <Box sx={{
-                                    display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center'
-                                }}
-                                >
+                                <Box sx={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
                                     <CircularProgress />
                                 </Box>
                             ) : pieChartData.length > 0 ? (
@@ -340,10 +391,10 @@ const Dashboard = () => {
                                         <Pie
                                             data={pieChartData}
                                             cx="50%"
-                                            cy="50%" // tataletak
-                                            innerRadius={50} // membuat lobang tengah
-                                            outerRadius={100} // sesuaikan ukuran tebal
-                                            paddingAngle={0} //jarak/batas
+                                            cy="50%"
+                                            innerRadius={50}
+                                            outerRadius={100}
+                                            paddingAngle={0}
                                             dataKey="value"
                                             nameKey="displayName"
                                         >
@@ -351,9 +402,7 @@ const Dashboard = () => {
                                                 <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
                                             ))}
                                         </Pie>
-                                        <Tooltip
-                                            content={<CustomTooltip />} // hofernya
-                                        />
+                                        <Tooltip content={<CustomTooltip />} />
                                         <Legend verticalAlign="middle" align="right" layout="vertical" iconSize={10} />
                                     </PieChart>
                                 </ResponsiveContainer>
@@ -363,11 +412,12 @@ const Dashboard = () => {
                                 </Box>
                             )}
                         </Box>
+                        <Chatbot />
                     </Paper>
                 </Grid>
             </Grid>
         </div>
     );
-}
+};
 
 export default Dashboard;

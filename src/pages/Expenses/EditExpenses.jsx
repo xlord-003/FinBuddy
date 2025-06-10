@@ -7,6 +7,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { db } from "../../firebaseConfig";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Chatbot from '../Dashboard/Chatbot';
 
 const EXPENSE_CATEGORIES = [
     "Housing", "Food", "Transport", "Books_supplies", "Entertainment",
@@ -294,6 +295,7 @@ const EditExpenses = () => {
                         )}
                     </Box>
                 </Grid>
+                <Chatbot />
             </Box>
         </div>
     );

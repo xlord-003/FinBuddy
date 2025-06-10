@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseConfig";
+import Chatbot from '../Dashboard/Chatbot';
 
 // Opsi save tips
 const savingOptions = [
@@ -202,13 +203,13 @@ const SaveTips = () => {
 
             <Box sx={{ width: '100%', spacing: 2 }}>
                 <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '1rem', bgcolor: 'var(--secondary-color)' }}>
-                    penjelasan dari ini.....
+                    "Hemat Pangkal Kaya" -Adam Smith (1980)
                     </Box>
                 <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>
-                    tht
+                    Metode Normal mencerminkan kehidupan seimbang
                     </Box>
                 <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>
-                    tht
+                    Mode Mewah mencerminkan kehidupan fantastis, glamour dan eksotis
                     </Box>
             </Box>
             {/* Untuk PopUp */}
@@ -270,6 +271,7 @@ const SaveTips = () => {
                                 </Grid>
                             ))}
                         </Grid>
+                        <Chatbot />
                     </DialogContent>
                 </StyledMaterialDialog>
             )}
