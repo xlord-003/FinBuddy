@@ -1,3 +1,4 @@
+import Chatbot from "./Chatbot";
 import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Typography, Paper, Grid, CircularProgress, circularProgressClasses } from '@mui/material';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
@@ -211,164 +212,167 @@ const Dashboard = () => {
     };
 
     const PIE_CHART_COLORS = ['#B50FD6', '#9370DB', '#FF6347', '#FFA500'];
-
     return (
-        <div className="div-main" >
-            {/* Header */}
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 1, mb: 1.5 }}>
-                <Box>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'var(--primary-font-color)' }}>
-                        Welcome back, {isLoading ? '' : (userName || 'Guest')}!
-                    </Typography>
-                    <Typography sx={{ color: 'var(--secondary-font-color)' }}>
-                        How's it going?
-                    </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <WorkspacePremiumIcon sx={{ color: 'var(--third-color)' }} />
-                    <Typography sx={{ fontWeight: 'bold', fontSize: '25px', color: 'var(--primary-font-color)' }}>
-                        Hemat
-                    </Typography>
-                </Box>
-            </Box>
-
-            {/* garis */}
-            <Box
-                sx={{
-                    height: "1px",
-                    width: "100%",
-                    backgroundColor: "var(--secondary-font-color)",
-                    marginBottom: "2rem"
-                }}
-            />
-
-            <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
-
-                <Grid item xs={12} sm={6} md={3}>
-                    <SummaryCard
-                        title="Balance" value={formatToRupiah(balance)}
-                        isLoading={isLoading}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <SummaryCard
-                        title="Income" value={formatToRupiah(totalIncome)}
-                        isLoading={isLoading}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <SummaryCard
-                        title="Expenses" value={formatToRupiah(totalExpenses)}
-                        isLoading={isLoading}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6} md={3}>
-                    <SummaryCard
-                        title="Scholarship"
-                        value={formatToRupiah(scholarship)}
-                        isLoading={isLoading}
-                    />
-                </Grid>
-
-                {/* kotak 5 (grafik) */}
-                <Grid item xs={12}>
-                    <Paper
-                        elevation={4}
-                        sx={{
-                            p: { xs: 1.5, sm: 2, md: 3 },
-                            backgroundColor: 'var(--secondary-color)',
-                            color: 'var(--primary-font-color)',
-                            borderRadius: '10px',
-                            height: { xs: 200, sm: 300 },
-                            width: { xs: 300, sm: 560 },
-                            minWidth: 'auto',
-                        }}
-                    >
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                            Monthly Overview
+        <>
+            <div className="div-main" >
+                {/* Header */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 1, mb: 1.5 }}>
+                    <Box>
+                        <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'var(--primary-font-color)' }}>
+                            Welcome back, {isLoading ? '' : (userName || 'Guest')}!
                         </Typography>
-
-                        {/* kontainer untuk grafik (isi) */}
-                        <Box sx={{ width: '100%', height: 'calc(100% - 100px)' }}>
-                            {isLoading ? (
-                                <Box sx={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
-                                    <CircularProgress />
-                                </Box>
-                            ) : (
-                                <ResponsiveContainer width="100%" height="120%">
-                                    <LineChart data={lineChartData} margin={{ top: 20, right: 25, left: 5, bottom: 5 }} backgroundColor="red">
-                                        <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
-                                        <XAxis dataKey="week" tick={{ fill: 'var(--secondary-font-color)' }} stroke="var(--secondary-font-color)" />
-                                        <YAxis tick={{ fill: 'var(--secondary-font-color)' }} stroke="var(--secondary-font-color)" domain={[0, yAxisMax]} tickFormatter={yAxisFormatter} />
-                                        <Tooltip formatter={(value) => formatToRupiah(value)} contentStyle={{ backgroundColor: 'var(--primary-color)', borderColor: 'var(--border-color)' }} labelStyle={{ color: 'var(--primary-font-color)' }} />
-                                        <Legend wrapperStyle={{ color: 'white' }} />
-                                        <Line type="monotone" dataKey="Income" stroke="#8884d8" strokeWidth={2} activeDot={{ r: 6 }} />
-                                        <Line type="monotone" dataKey="Expenses" stroke="#FFA500" strokeWidth={2} activeDot={{ r: 6 }} />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            )}
-                        </Box>
-                    </Paper>
-                </Grid>
-
-                {/* kotak 6 (pieChart) */}
-                <Grid item xs={12} md={6}>
-                    <Paper
-                        elevation={4}
-                        sx={{
-                            p: { xs: 1.5, sm: 2, md: 3 },
-                            backgroundColor: 'var(--secondary-color)',
-                            color: 'var(--primary-font-color)',
-                            borderRadius: '10px',
-                            height: { xs: 200, sm: 300 },
-                            width: { xs: 300, sm: 560 },
-                            minWidth: 'auto',
-                        }}
-                    >
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                            Expense Categories
+                        <Typography sx={{ color: 'var(--secondary-font-color)' }}>
+                            How's it going?
                         </Typography>
-                        <Box sx={{ width: '100%', height: 'calc(100% - 40px)' }}>
-                            {isLoading ? (
-                                <Box sx={{
-                                    display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center'
-                                }}
-                                >
-                                    <CircularProgress />
-                                </Box>
-                            ) : pieChartData.length > 0 ? (
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <PieChart>
-                                        <Pie
-                                            data={pieChartData}
-                                            cx="50%"
-                                            cy="50%" // tataletak
-                                            innerRadius={50} // membuat lobang tengah
-                                            outerRadius={100} // sesuaikan ukuran tebal
-                                            paddingAngle={0} //jarak/batas
-                                            dataKey="value"
-                                            nameKey="displayName"
-                                        >
-                                            {pieChartData.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
-                                            ))}
-                                        </Pie>
-                                        <Tooltip
-                                            content={<CustomTooltip />} // hofernya
-                                        />
-                                        <Legend verticalAlign="middle" align="right" layout="vertical" iconSize={15} borderRadius={1} />
-                                    </PieChart>
-                                </ResponsiveContainer>
-                            ) : (
-                                <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                                    <Typography sx={{ color: 'var(--secondary-font-color)' }}>There is no expenditure data yet.</Typography>
-                                </Box>
-                            )}
-                        </Box>
-                    </Paper>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <WorkspacePremiumIcon sx={{ color: 'var(--third-color)' }} />
+                        <Typography sx={{ fontWeight: 'bold', fontSize: '25px', color: 'var(--primary-font-color)' }}>
+                            Hemat
+                        </Typography>
+                    </Box>
+                </Box>
+
+                {/* garis */}
+                <Box
+                    sx={{
+                        height: "1px",
+                        width: "100%",
+                        backgroundColor: "var(--secondary-font-color)",
+                        marginBottom: "2rem"
+                    }}
+                />
+
+                <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
+
+                    <Grid item xs={12} sm={6} md={3}>
+                        <SummaryCard
+                            title="Balance" value={formatToRupiah(balance)}
+                            isLoading={isLoading}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <SummaryCard
+                            title="Income" value={formatToRupiah(totalIncome)}
+                            isLoading={isLoading}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <SummaryCard
+                            title="Expenses" value={formatToRupiah(totalExpenses)}
+                            isLoading={isLoading}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                        <SummaryCard
+                            title="Scholarship"
+                            value={formatToRupiah(scholarship)}
+                            isLoading={isLoading}
+                        />
+                    </Grid>
+
+                    {/* kotak 5 (grafik) */}
+                    <Grid item xs={12}>
+                        <Paper
+                            elevation={4}
+                            sx={{
+                                p: { xs: 1.5, sm: 2, md: 3 },
+                                backgroundColor: 'var(--secondary-color)',
+                                color: 'var(--primary-font-color)',
+                                borderRadius: '10px',
+                                height: { xs: 200, sm: 300 },
+                                width: { xs: 300, sm: 560 },
+                                minWidth: 'auto',
+                            }}
+                        >
+                            <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
+                                Monthly Overview
+                            </Typography>
+
+                            {/* kontainer untuk grafik (isi) */}
+                            <Box sx={{ width: '100%', height: 'calc(100% - 100px)' }}>
+                                {isLoading ? (
+                                    <Box sx={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                                        <CircularProgress />
+                                    </Box>
+                                ) : (
+                                    <ResponsiveContainer width="100%" height="120%">
+                                        <LineChart data={lineChartData} margin={{ top: 20, right: 25, left: 5, bottom: 5 }} backgroundColor="red">
+                                            <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+                                            <XAxis dataKey="week" tick={{ fill: 'var(--secondary-font-color)' }} stroke="var(--secondary-font-color)" />
+                                            <YAxis tick={{ fill: 'var(--secondary-font-color)' }} stroke="var(--secondary-font-color)" domain={[0, yAxisMax]} tickFormatter={yAxisFormatter} />
+                                            <Tooltip formatter={(value) => formatToRupiah(value)} contentStyle={{ backgroundColor: 'var(--primary-color)', borderColor: 'var(--border-color)' }} labelStyle={{ color: 'var(--primary-font-color)' }} />
+                                            <Legend wrapperStyle={{ color: 'white' }} />
+                                            <Line type="monotone" dataKey="Income" stroke="#8884d8" strokeWidth={2} activeDot={{ r: 6 }} />
+                                            <Line type="monotone" dataKey="Expenses" stroke="#FFA500" strokeWidth={2} activeDot={{ r: 6 }} />
+                                        </LineChart>
+                                    </ResponsiveContainer>
+                                )}
+                            </Box>
+                        </Paper>
+                    </Grid>
+
+                    {/* kotak 6 (pieChart) */}
+                    <Grid item xs={12} md={6}>
+                        <Paper
+                            elevation={4}
+                            sx={{
+                                p: { xs: 1.5, sm: 2, md: 3 },
+                                backgroundColor: 'var(--secondary-color)',
+                                color: 'var(--primary-font-color)',
+                                borderRadius: '10px',
+                                height: { xs: 200, sm: 300 },
+                                width: { xs: 300, sm: 560 },
+                                minWidth: 'auto',
+                            }}
+                        >
+                            <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
+                                Expense Categories
+                            </Typography>
+                            <Box sx={{ width: '100%', height: 'calc(100% - 40px)' }}>
+                                {isLoading ? (
+                                    <Box sx={{
+                                        display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center'
+                                    }}
+                                    >
+                                        <CircularProgress />
+                                    </Box>
+                                ) : pieChartData.length > 0 ? (
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                            <Pie
+                                                data={pieChartData}
+                                                cx="50%"
+                                                cy="50%" // tataletak
+                                                innerRadius={50} // membuat lobang tengah
+                                                outerRadius={100} // sesuaikan ukuran tebal
+                                                paddingAngle={0} //jarak/batas
+                                                dataKey="value"
+                                                nameKey="displayName"
+                                            >
+                                                {pieChartData.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
+                                                ))}
+                                            </Pie>
+                                            <Tooltip
+                                                content={<CustomTooltip />} // hofernya
+                                            />
+                                            <Legend verticalAlign="middle" align="right" layout="vertical" iconSize={15} borderRadius={1} />
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                ) : (
+                                    <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                                        <Typography sx={{ color: 'var(--secondary-font-color)' }}>There is no expenditure data yet.</Typography>
+                                    </Box>
+                                )}
+                            </Box>
+                        </Paper>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </div>
+                <Chatbot />
+            </div>
+        </>
+
     );
 }
 

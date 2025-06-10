@@ -13,26 +13,27 @@ const savingOptions = [
 ];
 
 // kategori
-const dialogCategories = ['Kebutuhan', 'Keinginan', 'Tabungan', 'Darurat'];
+const dialogCategories = ['Needs', 'Wants', 'Savings', 'Emergency'];
+// const dialogCategories = ['Kebutuhan', 'Keinginan', 'Tabungan', 'Darurat'];
 
 const allocationPercentages = {
     ECONOMICAL: {
-        Kebutuhan: 0.60, // 60%
-        Keinginan: 0.15, // 15%
-        Tabungan: 0.15,  // 15%
-        Darurat: 0.10,   // 10%
+        Needs: 0.60, // 60%
+        Wants: 0.15, // 15%
+        Savings: 0.15,  // 15%
+        Emergency: 0.10,   // 10%
     },
     NORMAL: {
-        Kebutuhan: 0.50, // 50%
-        Keinginan: 0.30, // 30%
-        Tabungan: 0.15,  // 15%
-        Darurat: 0.05,   // 5%
+        Needs: 0.50, // 50%
+        Wants: 0.30, // 30%
+        Savings: 0.15,  // 15%
+        Emergency: 0.05,   // 5%
     },
     LUXURIOUS: {
-        Kebutuhan: 0.40, // 40%
-        Keinginan: 0.50, // 50%
-        Tabungan: 0.05,  // 5%
-        Darurat: 0.05,   // 5%
+        Needs: 0.40, // 40%
+        Wants: 0.50, // 50%
+        Savings: 0.05,  // 5%
+        Emergency: 0.05,   // 5%
     }
 };
 
