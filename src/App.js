@@ -93,8 +93,8 @@ function App() {
                                 sx={{
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    height: '100vh', // Full viewport height
-                                    overflow: 'hidden', // Prevent scrolling
+                                    height: '100vh', // full viewport height
+                                    overflow: 'hidden', // prevent scrolling
                                 }}
                             >
                                 <Navbar onMenuClick={handleMenuClick} />
@@ -112,8 +112,8 @@ function App() {
                                             flex: 1,
                                             p: { xs: 2, sm: 3 },
                                             bgcolor: 'var(--background-color)',
-                                            // height: '100%', // HAPUS baris ini jika tidak perlu
-                                            overflowY: 'auto', // Ganti dari 'hidden' ke 'auto'
+                                            // height: '100%',
+                                            overflowY: 'auto', 
                                             width: {
                                                 xs: '100%',
                                                 md: sidebarOpen ? 'calc(100% - 250px)' : '100%',
