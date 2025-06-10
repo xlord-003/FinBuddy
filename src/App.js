@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Homepage from "./pages/Homepage/homepage";
 import LoginForm from "./component/LoginForm/LoginForm";
 import RegisForm from "./component/RegisForm/RegisForm";
+import ForgotPassword from "./component/ForgotPassword/ForgotPassword";
 import Income from "./pages/Income/Income";
 import Expences from "./pages/Expenses/Expenses";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -73,9 +75,10 @@ function App() {
             {/* Definisi rute */}
             <Routes>
                 {/* Rute publik: Login dan Register */}
-                <Route path="/" element={<LoginForm />} />
+                <Route path="/" element={<Homepage />} />
                 <Route path="/login" element={<LoginForm />} />
                 <Route path="/register" element={<RegisForm />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
 
                 {/* Rute yang dilindungi oleh ProtectedRoutes */}
 

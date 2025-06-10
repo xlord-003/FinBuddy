@@ -116,7 +116,9 @@ const LoginForm = () => {
                         />
                     </div>
                     <div className="froget-password">
-                        <a href="#">Forgot password?</a>
+                        <a>
+                            <Link to="/forgot-password">Forgot password?</Link>
+                        </a>
                     </div>
                     <div className="form-button">
                         <button type="submit" className="login-button" style={{ cursor: "pointer" }}>

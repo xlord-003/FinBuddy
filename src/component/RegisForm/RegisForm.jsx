@@ -21,30 +21,49 @@ const RegisForm = () => {
     };
     
     const prosesRegis = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        if (data.password.length < 6) {
-            setError(true);
-            return;
+    // Validasi panjang password
+    if (data.password.length < 6) {
+        setError(true);
+        return;
+    }
+    setError(false); // Reset error jika validasi berhasil
+
+    try {
+        // 1. Buat pengguna di Firebase Authentication (ini sudah benar dan aman)
+        const res = await createUserWithEmailAndPassword(auth, data.email, data.password);
+
+        // 2. Buat objek baru untuk disimpan ke Firestore TANPA password
+        const dataToStore = {
+            username: data.username,
+            email: data.email
+            // Password TIDAK disertakan
+        };
+
+        // 3. Simpan hanya data profil ke Firestore
+        await setDoc(doc(db, "users", res.user.uid), dataToStore);
+
+        // Reset form setelah berhasil
+        setData({
+            username: "",
+            email: "",
+            password: ""
+        });
+        
+        // Arahkan ke halaman login
+        backToLogin("/login");
+
+    } catch (err) { // Gunakan 'err' agar tidak bentrok dengan 'e' dari event
+        // Tampilkan pesan error yang lebih baik kepada pengguna
+        if (err.code === 'auth/email-already-in-use') {
+            alert('Email ini sudah terdaftar. Silakan gunakan email lain.');
+        } else {
+            alert('Gagal melakukan registrasi. Silakan coba lagi.');
         }
-
-        try {
-            const res = await createUserWithEmailAndPassword(auth, data.email, data.password);
-            await setDoc(doc(db, "users", res.user.uid), {
-                ...data
-            });
-            setData({
-                username: "",
-                email: "",
-                password: ""
-            });
-            backToLogin("/login")
-            // window.location.reload();
-
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
-    };
+        console.error("Error saat registrasi: ", err);
+    }
+};
 
     return (
         <div class="regis-container">
@@ -58,7 +77,7 @@ const RegisForm = () => {
                 <div class="back-login">
                     <Link to="/login">
                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor"
-                            class="bi bi-arrow-left" viewBox="0 0 16 16" color="#ffffff" display={"flex"} margin-left={"10px"}>
+                            class="bi bi-arrow-left" viewBox="0 0 16 16" color="#ffffff" style={{ display: "flex", marginLeft: "3px" }}>
                             <path fill-rule="evenodd"
                                 d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
                         </svg>

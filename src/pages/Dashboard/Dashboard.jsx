@@ -1,13 +1,13 @@
 import Chatbot from "./Chatbot";
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, Paper, Grid, CircularProgress, circularProgressClasses } from '@mui/material';
+import { Box, Typography, Paper, Grid, CircularProgress, circularProgressClasses, useMediaQuery } from '@mui/material';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-// kartu (4 kotak atas)
+// kartu (4 kotak atas - isi)
 const SummaryCard = ({ title, value, isLoading }) => (
     <Paper
         elevation={4}
@@ -212,7 +212,9 @@ const Dashboard = () => {
         return value;
     };
 
+    
     const PIE_CHART_COLORS = ['#B50FD6', '#9370DB', '#FF6347', '#FFA500'];
+    const isMobile = useMediaQuery('(max-width:600px)');
     return (
         <>
             <div className="div-main" >
@@ -351,8 +353,8 @@ const Dashboard = () => {
                                                 data={pieChartData}
                                                 cx="50%"
                                                 cy="50%" // tataletak
-                                                innerRadius={50} // membuat lobang tengah
-                                                outerRadius={100} // sesuaikan ukuran tebal
+                                                innerRadius={isMobile ? 30 : 50} // membuat lobang tengah
+                                                outerRadius={isMobile ? 60 : 100} // sesuaikan ukuran tebal
                                                 paddingAngle={0} //jarak/batas
                                                 dataKey="value"
                                                 nameKey="displayName"
