@@ -28,7 +28,7 @@ const AddIncome = () => {
       setIsAuthLoading(false);
     });
     return () => unsubscribe();
-  }, []); 
+  }, []);
 
   const handleAdd = async () => {
     try {
@@ -46,12 +46,12 @@ const AddIncome = () => {
       }
       const docRef = doc(db, "income", currentUserId);
       // Tambah dokumen baru ke koleksi "income"
-    await setDoc(docRef, {
-      userId: currentUserId, // Tambahkan userId
-      income: parseFloat(formData.income || 0),
-      scholarship: parseFloat(formData.scholarship || 0),
-      tuition_fee: parseFloat(formData.tuition_fee || 0),
-    });
+      await setDoc(docRef, {
+        userId: currentUserId, // Tambahkan userId
+        income: parseFloat(formData.income || 0),
+        scholarship: parseFloat(formData.scholarship || 0),
+        tuition_fee: parseFloat(formData.tuition_fee || 0),
+      });
 
 
       toast.success("Pendapatan berhasil ditambahkan!", {
@@ -90,11 +90,13 @@ const AddIncome = () => {
     <div className="div-add">
       <Box
         sx={{
-          width: 900,
-          height: 500,
-          backgroundColor: "var(--secondary-color)",
-          borderRadius: "10px",
-          p: 2,
+          width: { xs: '95%', sm: '90%', md: 900 },
+          minHeight: 500,
+          backgroundColor: 'var(--secondary-color)',
+          borderRadius: '10px',
+          p: { xs: 1.5, sm: 2, md: 3 },
+          display: 'flex',
+          flexDirection: 'column'
         }}
       >
         <Grid container sx={{ justifyContent: "center" }}>

@@ -268,7 +268,7 @@ const EditExpenses = () => {
                 </Grid>
 
                 <Grid container sx={{ flexGrow: 1, paddingRight: { xs: 0, sm: '1rem' }, alignItems: 'flex-start', justifyContent: 'center' }}>
-                    <Grid item xs={12} sm={10} sx={{ width: { xs: '100%', sm: '81%' } }}>
+                    <Grid item xs={12} sm={10} sx={{ width: '81%' }}>
                         {renderInputs()}
                     </Grid>
                 </Grid>

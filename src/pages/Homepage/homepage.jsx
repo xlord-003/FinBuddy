@@ -20,22 +20,20 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { Sparkles, PiggyBank, BrainCircuit } from "lucide-react";
 import DescriptionIcon from '@mui/icons-material/Description';
 import SavingsIcon from '@mui/icons-material/Savings';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import { motion } from "framer-motion";
 import logo from "../../image/logo.png";
 
-// Definisikan tema di luar komponen
 const theme = createTheme({
   typography: {
-    fontFamily: "'Poppins', sans-serif", // Mengatur font utama menjadi Poppins
+    fontFamily: "'Poppins', sans-serif", // Poppins
   },
   palette: {
     mode: "dark",
     background: {
-      default: "#0d1117", //warna dasar gelap
+      default: "#0d1117", //warna dasar
     },
     primary: {
       main: "#3b82f6",
@@ -93,7 +91,7 @@ const PageLayout = () => {
           <ListItemButton
             onClick={() => navigate("/login")}
             sx={{
-              backgroundColor: "#1f2937", // Warna tombol Sign In
+              backgroundColor: "#1f2937", // warna tombol Sign In
               margin: "8px 16px",
               borderRadius: "8px",
             }}
@@ -105,7 +103,7 @@ const PageLayout = () => {
           <ListItemButton
             onClick={() => navigate("/register")}
             sx={{
-              backgroundColor: "primary.main", // Warna tombol Sign Up
+              backgroundColor: "primary.main", // warna tombol Sign Up
               margin: "8px 16px",
               borderRadius: "8px",
               "&:hover": {
@@ -186,7 +184,7 @@ const PageLayout = () => {
           background: `linear-gradient(180deg, ${theme.palette.customGradient.start} 0%, ${theme.palette.customGradient.end} 100%)`,
           display: "flex",
           alignItems: "center",
-          py: { xs: 8, md: 10 }, // Memberi padding vertikal
+          py: { xs: 8, md: 10 }, // padding vertikal
         }}
       >
         <Container sx={{ textAlign: "center" }}>
@@ -278,11 +276,11 @@ const PageLayout = () => {
         </Container>
       </Box>
 
-      {/* === PERUBAHAN DI SINI: Menggunakan padding untuk memberi jarak === */}
+      {/* === */}
       <Box
         id="manfaat"
         sx={{
-          py: { xs: 10, md: 15 }, // Padding vertikal yang besar
+          py: { xs: 10, md: 15 }, // padding vertikal yang besar
           bgcolor: "background.default",
         }}
         justifyContent="start"
@@ -448,15 +446,15 @@ const PageLayout = () => {
       </Box>
 
       <Box
-        component="footer" // Mengubah Box menjadi elemen <footer> secara semantik
+        component="footer" 
         sx={{
           textAlign: "center",
           py: 4,
           px: 2,
-          mt: "auto", // Mendorong footer ke bagian bawah jika konten tidak penuh
+          mt: "auto", 
           borderTop: 1,
           borderColor: "grey.800",
-          bgcolor: "#0d1117", // Sedikit beda warna untuk memisahkan
+          bgcolor: "#0d1117",
         }}
       >
         <Typography variant="h6" gutterBottom>

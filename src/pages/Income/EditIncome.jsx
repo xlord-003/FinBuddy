@@ -154,11 +154,13 @@ const EditIncome = () => {
     <div className="div-add">
       <Box
         sx={{
-          width: 900,
-          height: 500,
-          backgroundColor: "var(--secondary-color)",
-          borderRadius: "10px",
-          p: 2,
+          width: { xs: '95%', sm: '90%', md: 900 },
+          minHeight: 500,
+          backgroundColor: 'var(--secondary-color)',
+          borderRadius: '10px',
+          p: { xs: 1.5, sm: 2, md: 3 },
+          display: 'flex',
+          flexDirection: 'column'
         }}
       >
         <Grid container sx={{ justifyContent: "center" }}>
