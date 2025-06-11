@@ -144,7 +144,7 @@ const PageLayout = () => {
                 About
               </Button>
               <Button color="inherit" onClick={() => scrollToSection("fitur")}>
-                Feature
+                Features
               </Button>
             </Box>
           )}
@@ -210,8 +210,7 @@ const PageLayout = () => {
               sx={{ mt: 3, mb: 4, maxWidth: 600, mx: "auto" }}
               color="text.secondary"
             >
-              Track expenses and set savings goals. Powered by AI for
-              personalized financial recommendations.
+              Record income and expenses, get personalized financial recommendations.
             </Typography>
 
             <Button
@@ -241,7 +240,7 @@ const PageLayout = () => {
             <Box
               mt={8}
               sx={{
-                maxWidth: "1200px",
+                maxWidth: "1500px",
                 mx: "auto",
                 p: isMobile ? 20 : 22,
                 borderRadius: "16px",
@@ -367,6 +366,8 @@ const PageLayout = () => {
                   color: "white",
                   height: "100%",
                   width: "500px",
+                  border: `1px solid`,
+                  borderColor: "grey.800",
                 }}
               >
                 <CardContent
@@ -402,47 +403,82 @@ const PageLayout = () => {
           variant="h5"
           textAlign="center"
           fontWeight="bold"
-          marginBottom={3}
+          marginBottom={4}
+          color="white"
         >
-          ----------
+          Apa Kata Mereka?
         </Typography>
-        <Grid container spacing={4} justifyContent="center">
-          {[
-            {
-              name: "---",
-              title: "---",
-              text: "---",
-            },
-            {
-              name: "---",
-              title: "---",
-              text: "---",
-            },
-          ].map((testimonial, i) => (
-            <Grid item xs={12} md={5} key={i}>
-              <Card
-                sx={{
-                  bgcolor: "#3B4B67",
-                  color: "white",
-                  height: "100%",
-                  width: "500px",
-                }}
+        <Container maxWidth="lg">
+          <Grid
+            container
+            spacing={4}
+            sx={{
+              display: "flex",
+              flexWrap: { xs: "wrap", md: "nowrap" },
+              justifyContent: "center",
+            }}
+          >
+            {[
+              {
+                name: "Aditya Wirawan",
+                title: "Mahasiswa Agrikultur",
+                text: "Aplikasinya sangat membantu saya sebagai mahasiswa untuk mengelola keuangan.",
+              },
+              {
+                name: "Rina Arini",
+                title: "Mahasiswa Ekonomi",
+                text: "Awalnya saya ragu dengan aplikasi ini, tapi setelah dilengkapi dengan fitur Chatbot Asistent, saya jadi mengerti bagaimana website ini bekerja.",
+              },
+              {
+                name: "Arif Prasetyo",
+                title: "Mahasiswa Akuntansi",
+                text: "Proyek ini sangat cocok untuk mahasiswa yang ingin mengelola keuangan dan rencana finansial kedepan.",
+              },
+            ].map((testimonial, i) => (
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                key={i}
+                sx={{ display: "flex", minWidth: 0 }}
               >
-                <CardContent>
-                  <Typography variant="subtitle1" fontWeight="bold">
-                    {testimonial.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {testimonial.title}
-                  </Typography>
-                  <Typography sx={{ mt: 1 }} color="text.secondary">
-                    {testimonial.text}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+                <Card
+                  sx={{
+                    bgcolor: "#3A4B69",
+                    color: "white",
+                    height: "100%",
+                    width: "500px",
+                  }}
+                >
+                  <CardContent 
+                    sx={{ 
+                      flexGrow: 1, 
+                      p: 3, 
+                      minHeight: 250,
+                      alignItems: "center",
+                      textAlign: "center",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}>
+                    <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+                      {testimonial.name}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: "#cbd5e1", mb: 2 }}
+                    >
+                      {testimonial.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: "#e2e8f0" }}>
+                      {testimonial.text}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
       </Box>
       <Chatbot />
 

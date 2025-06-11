@@ -31,15 +31,6 @@ const LoginForm = () => {
             navigate("/dashboard");
         } catch (error) {
             setError(true);
-            toast.error("Failed to log in: " + error.message, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "colored",
-            });
         }
     };
 
@@ -116,7 +107,9 @@ const LoginForm = () => {
                         />
                     </div>
                     <div className="froget-password">
-                        <a href="#">Forgot password?</a>
+                        <a>
+                            <Link to="/forgot-password">Forgot password?</Link>
+                        </a>
                     </div>
                     <div className="form-button">
                         <button type="submit" className="login-button" style={{ cursor: "pointer" }}>

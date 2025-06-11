@@ -201,16 +201,54 @@ const SaveTips = () => {
                 )}
             </Box>
 
-            <Box sx={{ width: '100%', spacing: 2 }}>
-                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '1rem', bgcolor: 'var(--secondary-color)' }}>
-                    "Hemat Pangkal Kaya" -Adam Smith (1980)
-                    </Box>
-                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>
-                    Metode Normal mencerminkan kehidupan seimbang
-                    </Box>
-                <Box sx={{ width: '100%', borderRadius: 2, border: '1px solid var(--border-color)', height: '60px', marginTop: '2rem', bgcolor: 'var(--secondary-color)' }}>
-                    Mode Mewah mencerminkan kehidupan fantastis, glamour dan eksotis
-                    </Box>
+            <Box sx={{ width: '100%' }}>
+            <Box
+                sx={{
+                width: '100%',
+                borderRadius: 2,
+                border: '1px solid var(--border-color)',
+                height: '60px',
+                mt: '1rem',
+                bgcolor: 'var(--secondary-color)',
+                display: 'flex',
+                alignItems: 'center',
+                pl: 2, // Padding kiri (spacing 2)
+                }}
+            >
+                "Hemat Pangkal Kaya" - Adam Smith (1980)
+            </Box>
+
+            <Box
+                sx={{
+                width: '100%',
+                borderRadius: 2,
+                border: '1px solid var(--border-color)',
+                height: '60px',
+                mt: '2rem',
+                bgcolor: 'var(--secondary-color)',
+                display: 'flex',
+                alignItems: 'center',
+                pl: 2,
+                }}
+            >
+                Metode Normal mencerminkan kehidupan seimbang
+            </Box>
+
+            <Box
+                sx={{
+                width: '100%',
+                borderRadius: 2,
+                border: '1px solid var(--border-color)',
+                height: '60px',
+                mt: '2rem',
+                bgcolor: 'var(--secondary-color)',
+                display: 'flex',
+                alignItems: 'center',
+                pl: 2,
+                }}
+            >
+                Mode Mewah mencerminkan kehidupan fantastis, glamour dan eksotis
+            </Box>
             </Box>
             {/* Untuk PopUp */}
             {dialogDetails && (
