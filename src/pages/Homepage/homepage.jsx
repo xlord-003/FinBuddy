@@ -144,7 +144,7 @@ const PageLayout = () => {
                 About
               </Button>
               <Button color="inherit" onClick={() => scrollToSection("fitur")}>
-                Feature
+                Features
               </Button>
             </Box>
           )}
@@ -210,8 +210,7 @@ const PageLayout = () => {
               sx={{ mt: 3, mb: 4, maxWidth: 600, mx: "auto" }}
               color="text.secondary"
             >
-              Track expenses and set savings goals. Powered by AI for
-              personalized financial recommendations.
+              Record income and expenses, get personalized financial recommendations.
             </Typography>
 
             <Button
@@ -241,7 +240,7 @@ const PageLayout = () => {
             <Box
               mt={8}
               sx={{
-                maxWidth: "1200px",
+                maxWidth: "1500px",
                 mx: "auto",
                 p: isMobile ? 20 : 22,
                 borderRadius: "16px",
@@ -276,7 +275,7 @@ const PageLayout = () => {
         </Container>
       </Box>
 
-      {/* === */}
+      
       <Box
         id="manfaat"
         sx={{
@@ -367,6 +366,8 @@ const PageLayout = () => {
                   color: "white",
                   height: "100%",
                   width: "500px",
+                  border: `1px solid`,
+                  borderColor: "grey.800",
                 }}
               >
                 <CardContent

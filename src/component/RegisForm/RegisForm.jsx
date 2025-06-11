@@ -3,6 +3,7 @@ import "./RegisForm.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../image/logo.png";
+import { toast } from "react-toastify";
 
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
@@ -31,10 +32,9 @@ const RegisForm = () => {
     setError(false); // Reset error jika validasi berhasil
 
     try {
-        // 1. Buat pengguna di Firebase Authentication (ini sudah benar dan aman)
+        // buat user baru dengan email dan password
         const res = await createUserWithEmailAndPassword(auth, data.email, data.password);
 
-        // 2. Buat objek baru untuk disimpan ke Firestore TANPA password
         const dataToStore = {
             username: data.username,
             email: data.email
@@ -54,12 +54,14 @@ const RegisForm = () => {
         // Arahkan ke halaman login
         backToLogin("/login");
 
-    } catch (err) { // Gunakan 'err' agar tidak bentrok dengan 'e' dari event
+    } catch (err) { 
         // Tampilkan pesan error yang lebih baik kepada pengguna
         if (err.code === 'auth/email-already-in-use') {
-            alert('Email ini sudah terdaftar. Silakan gunakan email lain.');
+            // alert('Email ini sudah terdaftar. Silakan gunakan email lain.');
+            toast.error('Email ini sudah terdaftar. Silakan gunakan email lain.');
         } else {
-            alert('Gagal melakukan registrasi. Silakan coba lagi.');
+            // alert('Gagal melakukan registrasi. Silakan coba lagi.');
+            toast.error('Gagal melakukan registrasi. Silakan coba lagi.');
         }
         console.error("Error saat registrasi: ", err);
     }
