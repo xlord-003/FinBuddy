@@ -17,20 +17,20 @@
   </p>
 
 <p align="center">
-  <img src="assets/pic/image (2).png" alt="GitHub Pipenv Linux Version" height="35">
-  <img src="assets/pic/image (3).png" alt="GitHub Pipenv Docker Version" height="35">
-  <img src="assets/pic/image (4).png" alt="GitHub Pipenv Docker Version" height="35">
-  <img src="assets/pic/image (5).png" alt="GitHub Pipenv Docker Version" height="35">
-  <img src="assets/pic/image (6).png" alt="GitHub Pipenv Docker Version" height="35">
-  <img src="assets/pic/image (7).png" alt="GitHub Pipenv Docker Version" height="35">
-  <img src="assets/pic/material.png" alt="GitHub Pipenv Ubuntu version" height="35">
-  <img src="assets/pic/css.png" alt="GitHub Pipenv Ubuntu version" height="35">
-  <img src="assets/pic/firebase.png" alt="GitHub Pipenv Ubuntu version" height="35">
-  <img src="assets/pic/matplotlib.svg" alt="GitHub Pipenv Ubuntu version" height="35">
-  <img src="assets/pic/numpy.png" alt="GitHub Pipenv Ubuntu version" height="35">
-  <img src="assets/pic/react.webp" alt="GitHub Pipenv Ubuntu version" height="35">
-  <img src="assets/pic/seaborn.webp" alt="GitHub Pipenv Ubuntu version" height="35">
-  <img src="assets/pic/vscode.png" alt="GitHub Pipenv Ubuntu version" height="35">
+  <img src="assets/pic/image (2).png" alt="GitHub Pipenv Linux Version" height="30">
+  <img src="assets/pic/image (3).png" alt="GitHub Pipenv Docker Version" height="30">
+  <img src="assets/pic/image (4).png" alt="GitHub Pipenv Docker Version" height="30">
+  <img src="assets/pic/image (5).png" alt="GitHub Pipenv Docker Version" height="30">
+  <img src="assets/pic/image (6).png" alt="GitHub Pipenv Docker Version" height="30">
+  <img src="assets/pic/image (7).png" alt="GitHub Pipenv Docker Version" height="30">
+  <img src="assets/pic/material.png" alt="GitHub Pipenv Ubuntu version" height="30">
+  <img src="assets/pic/css.png" alt="GitHub Pipenv Ubuntu version" height="30">
+  <img src="assets/pic/firebase.png" alt="GitHub Pipenv Ubuntu version" height="30">
+  <img src="assets/pic/matplotlib.svg" alt="GitHub Pipenv Ubuntu version" height="30">
+  <img src="assets/pic/numpy.png" alt="GitHub Pipenv Ubuntu version" height="30">
+  <img src="assets/pic/react.webp" alt="GitHub Pipenv Ubuntu version" height="30">
+  <img src="assets/pic/seaborn.webp" alt="GitHub Pipenv Ubuntu version" height="30">
+  <img src="assets/pic/vscode.png" alt="GitHub Pipenv Ubuntu version" height="30">
   
 <!--   <img src="https://github.com/HijazP/i-hate-to-budget/blob/main/Image/django%20logo.png" alt="GitHub Pipenv locked Python version" height="20"> -->
   </p>
