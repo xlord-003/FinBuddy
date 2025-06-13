@@ -22,3 +22,14 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Folder
+envir/
+Backend/
+model/
+mod_klas/
+
+# files big
+kb_embeddings.pkl
+fine-tuning - knowledge_base_finbuddy.csv
+fine-tuning - fine-tuning.csv

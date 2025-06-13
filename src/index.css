@@ -19,6 +19,7 @@
 body {
     margin: 0;
     font-family: poppins, sans-serif;
+    color: var(--primary-font-color);
 }
 
 main {
@@ -40,7 +41,7 @@ main {
     width: 190px;
 }
 .btn-main:hover{
-    background-color: #2564ebcd;
+    background-color: #1e4aa8;
     color: #ffffffbf;
     transition: 0.2s;
 }
