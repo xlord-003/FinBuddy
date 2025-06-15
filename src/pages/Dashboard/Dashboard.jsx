@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Typography, Paper, Grid, CircularProgress } from '@mui/material';
+import { Box, Typography, Paper, Grid, CircularProgress, useMediaQuery } from '@mui/material';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
@@ -17,7 +17,8 @@ const SummaryCard = ({ title, value, isLoading }) => (
             color: 'white',
             borderRadius: '10px',
             minHeight: '120px',
-            minWidth: '260px',
+            minWidth: '255px',
+            width: '90%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'start',
@@ -150,9 +151,10 @@ const Dashboard = () => {
                             finalPieData = processedForPie.filter(item => item.value > 0);
                         }
 
-                        setPieChartData(finalPieData.map(item => ({
+                        setPieChartData(finalPieData.map((item, idx) => ({
                             ...item,
-                            displayName: `${item.name} (${((item.value / calculatedTotalExpenses) * 100).toFixed(0)}%) `
+                            displayName: `${item.name} (${((item.value / calculatedTotalExpenses) * 100).toFixed(0)}%) `, // menampilkan persentase
+                            colorIndex: idx // menyesuaikan warna dengan index
                         })));
                     } else {
                         setPieChartData([]);
@@ -217,15 +219,16 @@ const Dashboard = () => {
         }
     }, [currentUID, fetchDashboardData]);
 
-    const CustomTooltip = ({ active, payload, label }) => {
+    const CustomTooltip = ({ active, payload, label }) => { // keterangan piechart
         if (active && payload && payload.length) {
+            const colorIndex = payload[0]?.payload?.colorIndex ?? 0;
             return (
                 <div
                     style={{
                         backgroundColor: 'var(--primary-color)',
                         padding: '10px 15px',
                         border: '1px solid var(--border-color)',
-                        color: 'var(--primary-font-color)'
+                        color: PIE_CHART_COLORS[colorIndex], //warna sesui dengan pie colornya
                     }}
                 >
                     {payload.map((pld, index) => (
@@ -253,11 +256,12 @@ const Dashboard = () => {
     };
 
     const PIE_CHART_COLORS = ['#6A0DAD', '#9370DB', '#FF6347', '#FFA500'];
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     return (
         <div className="div-main">
             {/* Header */}
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 1, mb: 1.5 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mb: 1.5 }}>
                 <Box>
                     <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'var(--primary-font-color)' }}>
                         Welcome back, {isLoading ? '' : (userName || 'Guest')}!
@@ -274,9 +278,9 @@ const Dashboard = () => {
                             fontWeight: 'bold',
                             color:
                                 spendingLabel === 'Hemat' ? 'green' :
-                                spendingLabel === 'Normal' ? 'blue' : 
-                                spendingLabel === 'Boros' ? 'red': 'gray',
-                                
+                                    spendingLabel === 'Normal' ? 'blue' :
+                                        spendingLabel === 'Boros' ? 'red' : 'gray',
+
                         }}
                     >
                         {spendingLabel}
@@ -294,7 +298,13 @@ const Dashboard = () => {
                 }}
             />
 
-            <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }}>
+            <Grid
+                container
+                spacing={{ xs: 2, sm: 2.5, md: 3 }}
+                justifyContent="center"
+                alignItems="stretch"
+                sx={{ width: '100%', margin: 0 }}
+            >
                 <Grid item xs={12} sm={6} md={3}>
                     <SummaryCard
                         title="Balance"
@@ -334,7 +344,7 @@ const Dashboard = () => {
                             color: 'var(--primary-font-color)',
                             borderRadius: '10px',
                             height: { xs: 200, sm: 300 },
-                            width: { xs: 300, sm: 560 },
+                            width: { xs: 300, sm: 555 },
                             minWidth: 'auto',
                         }}
                     >
@@ -348,7 +358,7 @@ const Dashboard = () => {
                                 </Box>
                             ) : (
                                 <ResponsiveContainer width="100%" height="120%">
-                                    <LineChart data={lineChartData} margin={{ top: 5, right: 20, left: -5, bottom: 5 }}>
+                                    <LineChart data={lineChartData} margin={{  top: 20, right: 25, left: 5, bottom: 5 }}>
                                         <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
                                         <XAxis dataKey="week" tick={{ fill: 'var(--secondary-font-color)' }} stroke="var(--secondary-font-color)" />
                                         <YAxis tick={{ fill: 'var(--secondary-font-color)' }} stroke="var(--secondary-font-color)" domain={[0, yAxisMax]} tickFormatter={yAxisFormatter} />
@@ -360,6 +370,7 @@ const Dashboard = () => {
                                 </ResponsiveContainer>
                             )}
                         </Box>
+                        
                     </Paper>
                 </Grid>
 
@@ -392,8 +403,8 @@ const Dashboard = () => {
                                             data={pieChartData}
                                             cx="50%"
                                             cy="50%"
-                                            innerRadius={50}
-                                            outerRadius={100}
+                                            innerRadius={isMobile ? 30 : 50} // membuat lobang tengah
+                                            outerRadius={isMobile ? 60 : 100} // sesuaikan ukuran tebal
                                             paddingAngle={0}
                                             dataKey="value"
                                             nameKey="displayName"
@@ -402,7 +413,9 @@ const Dashboard = () => {
                                                 <Cell key={`cell-${index}`} fill={PIE_CHART_COLORS[index % PIE_CHART_COLORS.length]} />
                                             ))}
                                         </Pie>
-                                        <Tooltip content={<CustomTooltip />} />
+                                        <Tooltip
+                                            content={<CustomTooltip />} // hofernya
+                                        />
                                         <Legend verticalAlign="middle" align="right" layout="vertical" iconSize={10} />
                                     </PieChart>
                                 </ResponsiveContainer>

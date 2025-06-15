@@ -95,7 +95,7 @@ const Income = () => {
 
   return (
     <div className="div-main">
-      <h2>Income Management</h2>
+      <label style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '1rem'}}>Income Management</label>
       <Box
         sx={{
           height: "1px",

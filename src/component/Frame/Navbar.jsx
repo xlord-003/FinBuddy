@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonIcon from '@mui/icons-material/Person';
 import { auth, db } from "../../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
@@ -112,7 +112,7 @@ const Navbar = ({ onMenuClick }) => {
         try {
             await signOut(auth);
             handleClose();
-            toast.success("Logged out successfully!");
+            toast.error("Logged out successfully!");
             navigate("/login");
         } catch (error) {
             console.error("Error signing out:", error);
@@ -146,7 +146,7 @@ const Navbar = ({ onMenuClick }) => {
                         onClick={handleClick}
                         sx={{ cursor: 'pointer' }}
                     >
-                        <AccountCircleIcon sx={{ fontSize: 30 }} />
+                        <PersonIcon sx={{ fontSize: 30 }} />
                     </StyledIconButton>
                     
                     <StyledMenu

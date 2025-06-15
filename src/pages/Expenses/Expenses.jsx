@@ -154,7 +154,7 @@ const Expences = () => {
 
     return (
         <div className='div-main'>
-            <h2>Expenses Tracking</h2>
+            <label style={{fontSize: '24px', fontWeight: 'bold', marginBottom: '1rem'}}>Expenses Tracking</label>
             <Box sx={{ height: '1px', width: '100%', backgroundColor: 'var(--secondary-font-color)', marginBottom: '2rem' }} />
 
             {isLoading ? (

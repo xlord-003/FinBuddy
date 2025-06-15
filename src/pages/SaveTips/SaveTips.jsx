@@ -14,26 +14,27 @@ const savingOptions = [
 ];
 
 // kategori
-const dialogCategories = ['Kebutuhan', 'Keinginan', 'Tabungan', 'Darurat'];
+const dialogCategories = ['Needs', 'Wants', 'Savings', 'Emergency'];
+// const dialogCategories = ['Kebutuhan', 'Keinginan', 'Tabungan', 'Darurat'];
 
 const allocationPercentages = {
     ECONOMICAL: {
-        Kebutuhan: 0.60, // 60%
-        Keinginan: 0.15, // 15%
-        Tabungan: 0.15,  // 15%
-        Darurat: 0.10,   // 10%
+        Needs: 0.60,       // 60%
+        Wants: 0.15,       // 15%
+        Savings: 0.15,     // 15%
+        Emergency: 0.10,   // 10%
     },
     NORMAL: {
-        Kebutuhan: 0.50, // 50%
-        Keinginan: 0.30, // 30%
-        Tabungan: 0.15,  // 15%
-        Darurat: 0.05,   // 5%
+        Needs: 0.50,       // 50%
+        Wants: 0.30,       // 30%
+        Savings: 0.15,     // 15%
+        Emergency: 0.05,   // 5%
     },
     LUXURIOUS: {
-        Kebutuhan: 0.40, // 40%
-        Keinginan: 0.50, // 50%
-        Tabungan: 0.05,  // 5%
-        Darurat: 0.05,   // 5%
+        Needs: 0.40,       // 40%
+        Wants: 0.50,       // 50%
+        Savings: 0.05,     // 5%
+        Emergency: 0.05,   // 5%
     }
 };
 
@@ -139,7 +140,7 @@ const SaveTips = () => {
 
     return (
         <div className="div-main" style={{ paddingBottom: '2rem' }}>
-            <h2>Saving Tips</h2>
+            <label style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '1rem' }}>Saving Tips</label>
             <Box
                 sx={{
                     height: "1px",
@@ -192,7 +193,7 @@ const SaveTips = () => {
                                             minWidth: '100px',
                                         }}
                                     >
-                                        CEK
+                                        CHECK
                                     </Button>
                                 </Paper>
                             </Grid>
@@ -202,53 +203,53 @@ const SaveTips = () => {
             </Box>
 
             <Box sx={{ width: '100%' }}>
-            <Box
-                sx={{
-                width: '100%',
-                borderRadius: 2,
-                border: '1px solid var(--border-color)',
-                height: '60px',
-                mt: '1rem',
-                bgcolor: 'var(--secondary-color)',
-                display: 'flex',
-                alignItems: 'center',
-                pl: 2, // Padding kiri (spacing 2)
-                }}
-            >
-                "Hemat Pangkal Kaya" - Adam Smith (1980)
-            </Box>
+                <Box
+                    sx={{
+                        width: '100%',
+                        borderRadius: 2,
+                        border: '1px solid var(--border-color)',
+                        height: '60px',
+                        mt: '1rem',
+                        bgcolor: 'var(--secondary-color)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        pl: 2, // Padding kiri (spacing 2)
+                    }}
+                >
+                    "Thrift is the Root of Wealth" - Adam Smith (1980)
+                </Box>
 
-            <Box
-                sx={{
-                width: '100%',
-                borderRadius: 2,
-                border: '1px solid var(--border-color)',
-                height: '60px',
-                mt: '2rem',
-                bgcolor: 'var(--secondary-color)',
-                display: 'flex',
-                alignItems: 'center',
-                pl: 2,
-                }}
-            >
-                Metode Normal mencerminkan kehidupan seimbang
-            </Box>
+                <Box
+                    sx={{
+                        width: '100%',
+                        borderRadius: 2,
+                        border: '1px solid var(--border-color)',
+                        height: '60px',
+                        mt: '2rem',
+                        bgcolor: 'var(--secondary-color)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        pl: 2,
+                    }}
+                >
+                    Normal Method reflects a balanced life
+                </Box>
 
-            <Box
-                sx={{
-                width: '100%',
-                borderRadius: 2,
-                border: '1px solid var(--border-color)',
-                height: '60px',
-                mt: '2rem',
-                bgcolor: 'var(--secondary-color)',
-                display: 'flex',
-                alignItems: 'center',
-                pl: 2,
-                }}
-            >
-                Mode Mewah mencerminkan kehidupan fantastis, glamour dan eksotis
-            </Box>
+                <Box
+                    sx={{
+                        width: '100%',
+                        borderRadius: 2,
+                        border: '1px solid var(--border-color)',
+                        height: '60px',
+                        mt: '2rem',
+                        bgcolor: 'var(--secondary-color)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        pl: 2,
+                    }}
+                >
+                    Luxury Fashion reflects a fantastic, glamorous and exotic life.
+                </Box>
             </Box>
             {/* Untuk PopUp */}
             {dialogDetails && (
@@ -309,10 +310,10 @@ const SaveTips = () => {
                                 </Grid>
                             ))}
                         </Grid>
-                        <Chatbot />
                     </DialogContent>
                 </StyledMaterialDialog>
             )}
+            <Chatbot />
         </div>
     );
 }

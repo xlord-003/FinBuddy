@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebaseConfig";
 import { toast } from "react-toastify";
 import logo from "../../image/logo.png";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const LoginForm = () => {
     const [error, setError] = useState(false);
@@ -12,9 +13,11 @@ const LoginForm = () => {
     const [password, setPassword] = useState("");
     const [value, setValue] = useState("");
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const prosesLogin = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
@@ -31,6 +34,8 @@ const LoginForm = () => {
             navigate("/dashboard");
         } catch (error) {
             setError(true);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -107,13 +112,16 @@ const LoginForm = () => {
                         />
                     </div>
                     <div className="froget-password">
-                        <a>
-                            <Link to="/forgot-password">Forgot password?</Link>
-                        </a>
+                        <Link to="/forgot-password">Forgot password?</Link>
                     </div>
                     <div className="form-button">
-                        <button type="submit" className="login-button" style={{ cursor: "pointer" }}>
-                            Login now
+                        <button
+                            type="submit"
+                            className="login-button"
+                            style={{ cursor: "pointer" }}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? <CircularProgress size={22} color="inherit" /> : "Login now"}
                         </button>
                         {error && <span className="error">Wrong email or password</span>}
                         <label className="or">or</label>

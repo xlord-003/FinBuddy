@@ -3,6 +3,7 @@ import "./RegisForm.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../image/logo.png";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
@@ -11,6 +12,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 const RegisForm = () => {
     const [error, setError] = useState(false);
     const [data, setData] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     const backToLogin = useNavigate()
 
@@ -19,7 +21,7 @@ const RegisForm = () => {
         const value = e.target.value;
         setData({ ...data, [id]: value });
     };
-    
+
     const prosesRegis = async (e) => {
         e.preventDefault();
 
@@ -27,6 +29,8 @@ const RegisForm = () => {
             setError(true);
             return;
         }
+
+        setIsLoading(true);
 
         try {
             const res = await createUserWithEmailAndPassword(auth, data.email, data.password);
@@ -43,6 +47,8 @@ const RegisForm = () => {
 
         } catch (e) {
             console.error("Error adding document: ", e);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -50,7 +56,7 @@ const RegisForm = () => {
         <div class="regis-container">
 
             <div class="finbuddy">
-                <img src={logo} alt="FinBuddy" height="100px" margin-right={"-2rem"}/>
+                <img src={logo} alt="FinBuddy" height="100px" margin-right={"-2rem"} />
                 <p class="finbuddy-title">FinBuddy</p>
             </div>
 
@@ -58,7 +64,7 @@ const RegisForm = () => {
                 <div class="back-login">
                     <Link to="/login">
                         <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor"
-                            class="bi bi-arrow-left" viewBox="0 0 16 16" color="#ffffff" display={"flex"} margin-left={"10px"}>
+                            class="bi bi-arrow-left" viewBox="0 0 16 16" color="#ffffff" style={{ display: "flex", marginLeft: "3px" }}>
                             <path fill-rule="evenodd"
                                 d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
                         </svg>
@@ -105,7 +111,9 @@ const RegisForm = () => {
                     </div>
 
 
-                    <button type="submit" class="regis-button">Regis now</button>
+                    <button type="submit" class="regis-button" disabled={isLoading}>
+                        {isLoading ? <CircularProgress size={22} color="inherit" /> : "Regis now"}
+                    </button>
 
                 </form>
             </div>
